@@ -1,0 +1,162 @@
+:root {
+    --bg-color: rgba(50, 50, 50, 1);
+    --text-color: #fff;
+    --main-color: #FC803A;
+}
+
+.layout {
+    margin: 10%;
+}
+
+.container1 {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.image {
+    max-width: 13%;
+    height: auto;
+}
+
+.text {
+    flex: 1;
+    max-width: 87%;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.image1 {
+    max-width: 60%;
+    height: auto;
+}
+
+.text1 {
+    flex: 1;
+    max-width: 40%;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.head-font {
+    font-family: "Populaire";
+    font-size: 5vw;
+}
+
+.body-font {
+    font-family: "Inter_Regular";
+    font-size: 1.5vw;
+    text-align: right;
+}
+
+@media only screen and (max-width: 768px) {
+    .container1 {
+        flex-direction: column;
+        align-items: left;
+    }
+    
+    .image {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .text {
+        max-width: 100%;
+    }
+
+    .image1 {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .text1 {
+        max-width: 100%;
+    }
+
+    .body-font {
+        font-family: "Inter_Regular";
+        font-size: 1.8vw;
+        text-align: left;
+    }
+}
+
+.featured-developers{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.developers {
+    display: flex;
+    width: 32%;
+    max-width: 32%;
+    min-width: 32%;
+    align-content: stretch;
+    position: relative;
+    display: inline-block;
+}
+
+.developers .img {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.developers .img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit:contain;
+
+}
+
+@media only screen and (max-width: 768px) {
+    .developers {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
+    .developers .img {
+        width: 50%;
+    }
+
+    .developers .img img{
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+
+    }
+}
+
+.name {
+    text-align: center;
+    margin-top: 1vw;
+    font-size: 1.5vw;
+    font-family: "Inter_Bold"
+}
+
+.name_details {
+    text-align: center;
+    margin-top: 0;
+    font-size: 1.2vw;
+    font-family: "Inter_Regular"
+}
+
+a {
+    color:#FC803A;
+}
+@font-face {
+    font-family: "Populaire";
+    src: url("../assets/Fonts/Populaire.ttf");
+}
+@font-face {
+    font-family: "Inter_Bold";
+    src: url("../assets/Fonts/inter/Inter-Bold.otf");
+}
+@font-face {
+    font-family: "Inter_Regular";
+    src: url("../assets/Fonts/inter/Inter-Regular.otf");
+}

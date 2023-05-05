@@ -1,0 +1,108 @@
+:root {
+    --bg-color: rgba(50, 50, 50, 1);
+    --text-color: #fff;
+    --main-color: #fc6913;
+}
+
+.content {
+    margin: 10%;
+}
+
+.container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile_pic {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%
+}
+
+.profile_name {
+    text-align: center;
+    margin-top: 1vw;
+    font-size: 1.5vw;
+    font-family: "Inter_Bold"
+}
+
+.changepic_btn {
+    text-align: center;
+    margin-top: 1vw;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1vw;
+    color: rgb(109, 109, 109);
+    font-family: "Inter_Bold"
+}
+
+.acc-info-title {
+    text-align: left;
+    margin-top: 1vw;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2vw;
+    color: rgb(109, 109, 109);
+    font-family: "Inter_Bold"
+}
+
+.acc-info-content {
+    text-align: left;
+    margin-top: 1vw;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2vw;
+    color: rgb(15, 15, 15);
+    font-family: "Inter_Regular"
+}
+
+.title {
+    text-align: center;
+    margin-top: 1vw;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 3vw;
+    color: rgb(15, 15, 15);
+    font-family: "Populaire"
+}
+
+.account-info{
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.indiv-info {
+    text-align: left;
+    display: flex;
+    width: 50%;
+    max-width: 50%;
+    min-width: 50%;
+    align-content: stretch;
+    position: relative;
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .indiv-info {
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+    }
+  }
+  
+@font-face {
+    font-family: "Populaire";
+    src: url("../assets/Fonts/Populaire.ttf");
+}
+@font-face {
+    font-family: "Inter_Bold";
+    src: url("../assets/Fonts/inter/Inter-Bold.otf");
+}
+@font-face {
+    font-family: "Inter_Regular";
+    src: url("../assets/Fonts/inter/Inter-Regular.otf");
+}
