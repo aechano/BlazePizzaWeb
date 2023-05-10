@@ -8,6 +8,13 @@
     margin-top: 130px;
 }
 
+.ad-image {
+    max-width: 97%; 
+    height: auto;
+    margin: 0 2%; 
+}
+  
+  
 .carousel-cell{
 
     width: 66%;

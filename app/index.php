@@ -70,6 +70,13 @@
                         ?>
                     </div>
                 </section>
+
+                <section>
+                    <br><br>
+                    <a href="https://www.instagram.com/blazepizza/" target="_blank">
+                        <img src="../assets/promos/Instagram_Ad.png" alt="Instagram Ad" class="ad-image" />
+                    </a>
+                </section>
             </div>
             
             <!-- products ends here -->
