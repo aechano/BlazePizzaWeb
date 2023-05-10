@@ -45,17 +45,32 @@
     margin-right: auto;
     font-size: 1.2vw;
     color: rgb(109, 109, 109);
-    font-family: "Inter_Bold"
+    font-family: "Inter_Bold";
+    text-align: left;
 }
 
 .acc-info-content {
     text-align: left;
-    margin-top: 1vw;
     margin-left: auto;
     margin-right: auto;
     font-size: 2vw;
     color: rgb(15, 15, 15);
-    font-family: "Inter_Regular"
+    font-family: "Inter_Regular";
+    height: 30%;
+    margin-top: 0vw;
+    text-align: left;
+}
+
+.acc-info-content2 {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2vw;
+    color: rgb(15, 15, 15);
+    font-family: "Inter_Regular";
+    height: 62%;
+    margin-top: 0vw;
+    text-align: left;
 }
 
 .title {
@@ -68,11 +83,21 @@
     font-family: "Populaire"
 }
 
+textarea {
+    margin-top: 1vw;
+    width: 90%;
+    resize: none;
+    outline: none;
+    box-shadow: none;
+  }
+
 .account-info{
     text-align: left;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    height: 0px;
+    text-align: left;
 }
 
 .indiv-info {
@@ -91,6 +116,15 @@
       width: 100%;
       max-width: 100%;
       min-width: 100%;
+    }
+
+    .acc-info-content {
+        width: 100%;
+    }
+
+    .acc-info-content2 {
+        height: 30%;
+        width: 100%;
     }
   }
   
