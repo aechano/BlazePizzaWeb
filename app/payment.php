@@ -21,41 +21,34 @@
 
                             <div class="payment-form">
 
-                                <!--  <div class="payment-method">
 
-                                    <button class="method selected">
-                                    <ion-icon name="card"></ion-icon>
+                                <?php
 
-                                    <span>Credit Card</span>
+                                    if(isset($_SESSION['customerID'])) {
+                                        $user_info = $conn->prepare("SELECT * FROM `customer` WHERE customerID = ?");
+                                        $user_info->execute([$_SESSION['customerID']]);
 
-                                    <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
-                                    </button>
-
-                                    <button class="method">
-                                    <ion-icon name="logo-paypal"></ion-icon>
-
-                                    <span>PayPal</span>
-
-                                    <ion-icon class="checkmark" name="checkmark-circle-outline"></ion-icon>
-                                    </button>
-
-                                </div>-->
+                                        if($user_info->rowCount() > 0){                          
+                                             $fetch_info = $user_info->fetch(PDO::FETCH_ASSOC);                                 
+   
+                                ?>
+     
 
                                 <form action="#">
 
                                     <div class="form-deets">
                                     <label for="cardholder-name" class="label-default">Name</label>
-                                    <input type="text" class="input-default">
+                                    <input type="text" value="<?php echo $fetch_info['custFname'], $fetch_info['custLname']?>" disabled="disabled" class="input-default">
                                     </div>
 
                                     <div class="form-deets">
                                     <label for="card-number" class="label-default">Phone Number</label>
-                                    <input type="text" class="input-default">
+                                    <input type="text" value="<?php echo $fetch_info['custContactNum']?>" disabled="disabled" class="input-default">
                                     </div>
 
                                     <div class="form-deets">
                                     <label for="card-email" class="label-default">Email Address</label>
-                                    <input type="text" class="input-default">
+                                    <input type="text" value="<?php echo $fetch_info['custEmail'] ?>" disabled="disabled" class="input-default">
                                     </div>
 
                                     <div class="form-deets">
@@ -75,6 +68,11 @@
                                     <div class="stamps">
                                     </div> -->
                                 </form>
+
+                                <?php
+                                        }
+                                    }
+                                ?>
 
                             </div>
 

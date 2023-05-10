@@ -33,7 +33,7 @@
                 </div>
                 <div class="indiv-info">
                     <p class="acc-info-title">Phone Number:</p>
-                    <p class="acc-info-content">(403) 555-1234)</p>
+                    <p class="acc-info-content">((403) 555-1234)</p>
                 </div>
                 <div class="indiv-info">
                     <p class="acc-info-title">Address:</p>
