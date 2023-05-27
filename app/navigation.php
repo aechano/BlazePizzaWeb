@@ -85,13 +85,20 @@ if(isset($_GET['logout'])){
         </div>
     </div>
 
+    <?php 
+
+        if(!strpos($_SERVER['REQUEST_URI'], "payment.php")) {
+
+    ?>   
+
     <div class="shopping-cart">
 
         <section>
 
-            <div id="close-cart"> <span class="fas fa-times"></span></div>
+            <div id="close-cart"> <span class="fas fa-arrow-right"></span></div>
 
                 <?php
+
                     if(isset($_SESSION['customerID'])) {
                         $cart_items = $conn->prepare("SELECT * FROM `orderitemcart` WHERE customerID = ?");
                         $cart_items->execute([$_SESSION['customerID']]);
@@ -108,7 +115,7 @@ if(isset($_GET['logout'])){
 
                 ?>
 
-                <div class="box">
+                <div class="<?= 'box box'.$i ?>">
                    <!--  <a href="#" class="fas fa-times"></a>
                     <?php
                         echo'<img src="data:image/png;base64,' .base64_encode($fetch_details['productImage']).'" alt=""/>';
@@ -120,6 +127,8 @@ if(isset($_GET['logout'])){
                         <button type="submit" class="fas fa-edit" name="update_qty"></button>
                         </form>
                     </div> -->
+
+                     <div id="<?= $i ?>" class="remove_products fas fa-times-circle"></div>
 
                     <div style="position: relative;">
                         <div class="loading" id="<?= 'loading'.$i; ?>" style="display:none;">
@@ -139,6 +148,7 @@ if(isset($_GET['logout'])){
                             <form id="<?= 'form'.$i; ?>" method="post">
                                 <input type="number" id="<?= $i; ?>" class="qty" name="quantity" min="1" value="<?= $fetch_orders['OICartQty']; ?>" max="100">
                                 <input type="hidden" name="id" value="<?php echo $fetch_orders['productID'] ?>">
+                                <input type="hidden" name="order_type" value="1">
                             </form>
                         </div>
                      </div>
@@ -154,14 +164,23 @@ if(isset($_GET['logout'])){
                     }
 
                     if(!isset($isEmpty)) {
-                        echo '<a href="../app/payment.php?type=1" class="butn">order now</a>';
+                        echo '<a id="order_button" href="../app/payment.php?type=1" class="butn">order now</a>';
+                    } else {
+                         echo '<div id="empty" class="butn">Empty</div>';
                     }
 
                 ?>
 
-
-                
-
         </section>
+             
     </div>
+
+    <?php      
+
+        }
+
+    ?>
+
 </header>
+
+<div class="loading1" style="display:none;"></div>

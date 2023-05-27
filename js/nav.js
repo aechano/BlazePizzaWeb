@@ -26,6 +26,31 @@ $(".qty").bind('keyup change click', function (e) {
    	}
 });
 
+
 $(".qty").each(function () {
     $(this).data("previousValue", $(this).val());
+});
+
+
+$(".remove_products").bind('click', function (e) {
+
+  var self = $(this);
+
+  $.ajax({
+    type: "POST",
+    url: "../app/order.php?action=remove_order",
+    data: $("#form" + self.attr('id')).serialize(),
+    success: function(data) {
+      if(data != "success") { 
+        alert("Something went wrong!");
+      }
+     $('.box' + self.attr('id')).remove();
+     if( $(".shopping-cart").children('section').children('.box').length == 0) {
+       $(".shopping-cart").children('section').append('<div id="empty" class="butn">Empty</div>');
+         $("#order_button").remove();
+     }
+
+    }
+  })
+  
 });

@@ -16,10 +16,10 @@
 
 
 #reviews-box {
-    background-color: #d1d1d1;
     border-radius: 30px;
     padding: 3% 5%;
     margin: 0 2%;
+    border: 1px solid black;
   }
   
   #reviews-box h3 {
@@ -34,13 +34,14 @@
   }
   
   #reviews-box .reviews {
-    height: 300px;
+    height: 500px;
     overflow-y: scroll;
     margin-top: 20px;
     border: 1px solid rgb(255, 255, 255);
     border-radius: 5px;
     padding: 10px;
     background-color: #fdf7f7;
+    scrollbar-width: thin;
 
   }
   

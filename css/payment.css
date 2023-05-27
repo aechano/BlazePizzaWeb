@@ -172,6 +172,7 @@ color: var(--quick-silver);
 
 .form-control {
     margin-top: 0.5vw;
+    padding: 5px;
     width: 200px;
     height: 40px;
     border: 2px solid #E96D1F;
@@ -194,6 +195,13 @@ color: var(--quick-silver);
     position: relative;
     margin-bottom: 20px; 
 }
+
+.payment-form textarea {
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
 
 /*.card-number input,
 
@@ -267,6 +275,9 @@ gap: 13px;
     position: relative;
     display:     flex;
     align-items: flex-start;
+    border-radius: 0.5rem;
+    border: 1px solid wheat;
+    padding: 10px;
     gap: 20px;
 }
 
@@ -315,6 +326,7 @@ gap: 13px;
     position: absolute;
     top:   0;
     right: 0;
+    padding: 5px;
 }
 
 .product-close-btn ion-icon {
@@ -361,6 +373,7 @@ gap: 13px;
     /*padding: 40px var(--px);*/
     padding: 1rem;
     padding-right: 0;
+    border-bottom: 1px solid #e6e6e6
 }
 
 .amount > div {
@@ -385,6 +398,11 @@ gap: 13px;
     border: none;
     border-radius: 5px;
 }
+
+.error, .success {
+    margin-left: 0;
+}
+
 
 /* .stamps {
     box-sizing: border-box;

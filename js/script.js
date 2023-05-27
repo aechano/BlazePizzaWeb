@@ -7,11 +7,17 @@ document.querySelector('#menu-icon').onclick = () =>{
 let cart = document.querySelector('.shopping-cart');
 
 document.querySelector('#shopping').onclick = () =>{
+  if(cart != undefined) {
    cart.classList.add('active');
+  }
 }
 
-document.querySelector('#close-cart').onclick = () =>{
-   cart.classList.remove('active');
+if(document.querySelector('#close-cart') != undefined) {
+  document.querySelector('#close-cart').onclick = () =>{
+    if(cart != undefined) {
+     cart.classList.remove('active');
+    }
+  }
 }
 
 window.onscroll = () =>{

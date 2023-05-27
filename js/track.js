@@ -9,6 +9,8 @@ const priceElem = document.querySelectorAll('#price');
 const subtotalElem = document.querySelector('#subtotal');
 const taxElem = document.querySelector('#tax');
 const totalElem = document.querySelector('#total');
+const promo_code = document.querySelector('#promo_code');
+const shipping = document.querySelector('#shipping');
 
 window.onload = function() {
   totalCalc();
@@ -80,10 +82,86 @@ const totalCalc = function () {
   taxElem.textContent = totalTax.toFixed(2);
 
   // calcualting the `total`
-  total = subtotal + totalTax;
+  total = ((subtotal + totalTax + Number(shipping.textContent)) - Number(promo_code.textContent));
 
-  // show the `total` variable value on `totalElem` & `payAmountBtn` element
+
+  // show the `total` variable value on `totalElem` & `payAmou,ntBtn` element
   totalElem.textContent = total.toFixed(2);
   payAmountBtn.textContent = total.toFixed(2);
 
 }
+
+$('body').on('click' , '#promo_button', function() {
+    $.ajax({
+    type: "POST",
+    url: "../app/voucher.php",
+    data: $("#promo").serialize(),
+    success: function(data) {
+      if(data != "0") {
+        $(".promo_code").show();
+        $("#promo_code").text(parseFloat(data).toFixed(2));
+        $("#remove_promo").show();
+        $("#promo_button").hide();
+        $("#discount-token").prop("readonly", true);
+        $("#message").append('<div class="success"><p>Promo code added!</p></div>');
+
+        setTimeout(function(){
+          $('#message').empty();
+        }, 5000);
+      } else {
+        $("#discount-token").val("");
+        $("#message").append('<div class="error"><p>Invalid promo code!</p></div>');
+
+        setTimeout(function(){
+          $('#message').empty();
+        }, 5000);
+      }
+
+      totalCalc();
+
+    },
+  })
+});
+
+$('body').on('click' , '#remove_promo', function() {
+
+    $("#remove_promo").hide();
+    $("#promo_button").show();
+    $("#discount-token").val("");
+
+    $.ajax({
+      type: "POST",
+      url: "../app/voucher.php",
+      data: $("#promo").serialize(),
+      success: function(data) {
+        if(data == "0") {
+          $('#message').empty();
+          $("#discount-token").prop("readonly", false);
+          $(".promo_code").hide();
+          $("#promo_code").text(parseFloat(data).toFixed(2));
+          totalCalc();
+        } 
+    },
+  })
+});
+
+
+$(".product-close-btn").bind('click', function (e) {
+
+  var self = $(this);
+  console.log($("#form" + self.attr('id')));
+
+  $.ajax({
+    type: "POST",
+    url: "../app/order.php?action=remove_order",
+    data: $("#payment_form" + self.attr('id')).serialize(),
+    success: function(data) {
+      if(data != "success") { 
+        alert("Something went wrong!");
+      }
+     $('.product-card' + self.attr('id')).empty();
+     totalCalc();
+    }
+  })
+  
+});
