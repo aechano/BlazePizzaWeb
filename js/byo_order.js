@@ -8,6 +8,14 @@ $(function() {
     
     // Animation
     
+    var inputValue = this.getAttribute("data-input");
+
+    if (inputValue == 0){
+        
+    }
+
+
+
     // Insert Data
     li.click(function() {
         // hide

@@ -376,6 +376,10 @@ input {
   font-size: 1rem;
 }
 
+.removed {
+  display: none; /* or any other visual styling you prefer */
+}
+
 
 
 

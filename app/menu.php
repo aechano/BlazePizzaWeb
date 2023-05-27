@@ -11,6 +11,7 @@
         <div class="content">
             <div class="container">
                 <div class="menu-all">
+                    
                     <div class="menu-layout" >
                         <span class="menu-title">
                             <p class="menu1">Menu</p>
@@ -52,17 +53,26 @@
                     </div>
 
                     <div class="menu-order">
+
+
                         <div class="order-wrap">
                             <div class="item hotty">                             
                                 <?php
+                                    $redirect = '';
                                     $categ = "What's Hot";
                                     $select_menu = $conn->prepare("SELECT * FROM `product` WHERE productType = ?");
                                     $select_menu->execute([$categ]);
                                     if($select_menu->rowCount() > 0){
-                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){          
+                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){      
+                                            
+                                            if ($fetch_orders['productName'] == 'Build Your Own'){
+                                                $redirect = '../app/byo_order.php?id='.$fetch_menu['productID'];
+                                            }else{
+                                                $redirect = '../app/fixed_order.php?id='.$fetch_orders['productID'];
+                                            }    
                                 ?>
                                 
-                                <div class="menu-products">
+                                <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
                                             echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
@@ -77,21 +87,28 @@
                                 <?php
                                         }
                                     }else{
-                                        echo '<p class="empty">nothing ordered yet!</p>';
+                                        echo '<p class="empty">No Products Available</p>';
                                     }
                                 ?>
                             </div>
 
                             <div class="item pizza">
                                 <?php
+                                    $redirect = '';
                                     $categ = "11-Inch Pizza";
                                     $select_menu = $conn->prepare("SELECT * FROM `product` WHERE productType = ?");
                                     $select_menu->execute([$categ]);
                                     if($select_menu->rowCount() > 0){
-                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){          
+                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){  
+                                            
+                                            if ($fetch_menu['productName'] == 'Build Your Own'){
+                                                $redirect = '../app/byo_order.php?id='.$fetch_menu['productID'];
+                                            }else{
+                                                $redirect = '../app/fixed_order.php?id='.$fetch_menu['productID'];
+                                            }            
                                 ?>
                                 
-                                <div class="menu-products">
+                                <div class="menu-products"  onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
                                             echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
@@ -106,21 +123,27 @@
                                 <?php
                                         }
                                     }else{
-                                        echo '<p class="empty">nothing ordered yet!</p>';
+                                        echo '<p class="empty">No Products Available</p>';
                                     }
                                 ?>
                             </div>
 
                             <div class="item taketwo">
                                 <?php
+                                    $redirect = '';
                                     $categ = "Take Two";
                                     $select_menu = $conn->prepare("SELECT * FROM `product` WHERE productType = ?");
                                     $select_menu->execute([$categ]);
                                     if($select_menu->rowCount() > 0){
-                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){          
+                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){   
+                                            if ($fetch_menu['productName'] == 'Build Your Own'){
+                                                $redirect = '../app/byo_order.php?id='.$fetch_menu['productID'];
+                                            }else{
+                                                $redirect = '../app/fixed_order.php?id='.$fetch_menu['productID'];
+                                            }          
                                 ?>
                                 
-                                <div class="menu-products">
+                                <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
                                             echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
@@ -135,21 +158,27 @@
                                 <?php
                                         }
                                     }else{
-                                        echo '<p class="empty">nothing ordered yet!</p>';
+                                        echo '<p class="empty">No Products Available</p>';
                                     }
                                 ?>
                             </div>
 
                             <div class="item lpizza">
                                 <?php
+                                    $redirect = '';
                                     $categ = "Large Pizza";
                                     $select_menu = $conn->prepare("SELECT * FROM `product` WHERE productType = ?");
                                     $select_menu->execute([$categ]);
                                     if($select_menu->rowCount() > 0){
-                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){          
+                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){    
+                                            if ($fetch_menu['productName'] == 'Build Your Own'){
+                                                $redirect = '../app/byo_order.php?id='.$fetch_menu['productID'];
+                                            }else{
+                                                $redirect = '../app/fixed_order.php?id='.$fetch_menu['productID'];
+                                            }         
                                 ?>
                                 
-                                <div class="menu-products">
+                                <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
                                             echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
@@ -164,21 +193,27 @@
                                 <?php
                                         }
                                     }else{
-                                        echo '<p class="empty">nothing ordered yet!</p>';
+                                        echo '<p class="empty">No Products Available</p>';
                                     }
                                 ?>
                             </div>
 
                             <div class="item digDeals">
                                 <?php
+                                    $redirect = '';
                                     $categ = "Digital Deals";
                                     $select_menu = $conn->prepare("SELECT * FROM `product` WHERE productType = ?");
                                     $select_menu->execute([$categ]);
                                     if($select_menu->rowCount() > 0){
-                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){          
+                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){  
+                                            if ($fetch_menu['productName'] == 'Build Your Own'){
+                                                $redirect = '../app/byo_order.php?id='.$fetch_menu['productID'];
+                                            }else{
+                                                $redirect = '../app/fixed_order.php?id='.$fetch_menu['productID'];
+                                            }           
                                 ?>
                                 
-                                <div class="menu-products">
+                                <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
                                             echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
@@ -193,21 +228,27 @@
                                 <?php
                                         }
                                     }else{
-                                        echo '<p class="empty">nothing ordered yet!</p>';
+                                        echo '<p class="empty">No Products Available</p>';
                                     }
                                 ?>
                             </div>
 
                             <div class="item cheesy">
                                 <?php
+                                    $redirect = '';    
                                     $categ = "Cheesy Breads and Salads";
                                     $select_menu = $conn->prepare("SELECT * FROM `product` WHERE productType = ?");
                                     $select_menu->execute([$categ]);
                                     if($select_menu->rowCount() > 0){
-                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){          
+                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){  
+                                            if ($fetch_menu['productName'] == 'Build Your Own'){
+                                                $redirect = '../app/byo_order.php?id='.$fetch_menu['productID'];
+                                            }else{
+                                                $redirect = '../app/fixed_order.php?id='.$fetch_menu['productID'];
+                                            }           
                                 ?>
                                 
-                                <div class="menu-products">
+                                <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
                                             echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
@@ -222,21 +263,27 @@
                                 <?php
                                         }
                                     }else{
-                                        echo '<p class="empty">nothing ordered yet!</p>';
+                                        echo '<p class="empty">No Products Available</p>';
                                     }
                                 ?>
                             </div>
 
                             <div class="item desserts">
                                 <?php
+                                    $redirect = '';
                                     $categ = "Desserts";
                                     $select_menu = $conn->prepare("SELECT * FROM `product` WHERE productType = ?");
                                     $select_menu->execute([$categ]);
                                     if($select_menu->rowCount() > 0){
-                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){          
+                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){     
+                                            if ($fetch_menu['productName'] == 'Build Your Own'){
+                                                $redirect = '../app/byo_order.php?id='.$fetch_menu['productID'];
+                                            }else{
+                                                $redirect = '../app/fixed_order.php?id='.$fetch_menu['productID'];
+                                            }        
                                 ?>
                                 
-                                <div class="menu-products">
+                                <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
                                             echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
@@ -251,21 +298,27 @@
                                 <?php
                                         }
                                     }else{
-                                        echo '<p class="empty">nothing ordered yet!</p>';
+                                        echo '<p class="empty">No Products Available</p>';
                                     }
                                 ?>
                             </div>
 
                             <div class="item drinks">
                                 <?php
+                                    $redirect = '';
                                     $categ = "Drinks, Beers, and Wine";
                                     $select_menu = $conn->prepare("SELECT * FROM `product` WHERE productType = ?");
                                     $select_menu->execute([$categ]);
                                     if($select_menu->rowCount() > 0){
-                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){          
+                                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){  
+                                            if ($fetch_menu['productName'] == 'Build Your Own'){
+                                                $redirect = '../app/byo_order.php?id='.$fetch_menu['productID'];
+                                            }else{
+                                                $redirect = '../app/fixed_order.php?id='.$fetch_menu['productID'];
+                                            }           
                                 ?>
                                 
-                                <div class="menu-products">
+                                <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
                                             echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
@@ -280,7 +333,7 @@
                                 <?php
                                         }
                                     }else{
-                                        echo '<p class="empty">nothing ordered yet!</p>';
+                                        echo '<p class="empty">No Products Available</p>';
                                     }
                                 ?>
                             </div>
