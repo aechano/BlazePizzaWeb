@@ -37,7 +37,7 @@
                                 ?>
      
 
-                                <form action="#">
+                                <form id="order_form" action="post">
 
                                     <div class="form-deets">
                                     <label for="cardholder-name" class="label-default">Name</label>
@@ -58,9 +58,11 @@
                                     <label for="card-address" class="label-default">Address</label>
                                     <section>
                                         <div class="address-outline">
-                                            <textarea class="address-textarea" rows="10"><?php echo $fetch_info['custAddress']; ?></textarea>
+                                            <textarea id="address" class="address-textarea" disabled="disabled" rows="10"><?php echo $fetch_info['custAddress']; ?></textarea>
                                         </div>
                                     </section>
+
+                                    <input id="order_type" name="order_type" type="hidden" value="<?= isset($_GET['type']) ? $_GET['type'] : ""?>">
 
                                     <!-- <label for="card-address" class="label-default">Stamps</label>
                                     <div class="stamps">
@@ -76,6 +78,11 @@
 
                             <button class="btn btn-primary">
                                 <b>Total:</b> $ <span id="payAmount">0.00</span>
+                            </button>
+
+                            <button id="submit" class="btn btn-primary">
+                                <b>Proceed</b>
+                                <span class="fas fa-arrow-right"></span>
                             </button>
 
                         </section>
@@ -119,13 +126,13 @@
                                             <h4 class="product-name"><?= $fetch_orders['productName'];?></h4>
                                             <div class="wrapper">
                                                 <div class="product-qty">
-                                                    <button id="decrement">
+                                                    <button id="decrement" name="<?= $i ?>">
                                                     <ion-icon name="remove-outline"></ion-icon>
                                                     </button>
 
                                                     <span id="quantity"><?= isset($_GET['quantity']) ?  $_GET['quantity'] :  0 ?></span>
 
-                                                    <button id="increment">
+                                                    <button id="increment" name="<?= $i ?>">
                                                     <ion-icon name="add-outline"></ion-icon>
                                                     </button>
                                                 </div>
@@ -135,9 +142,9 @@
                                             </div>
                                         </div>
                                         <form id="<?= 'payment_form'.$i; ?>" method="post">
-                                            <input type="hidden" name="id" value="<?= $fetch_orders['productID']; ?>">
-                                            <input type="hidden" name="qty" value="<?= $_GET['quantity']; ?>">
-                                            <input type="hidden" name="order_type" value="<?= $_GET['type']; ?>">
+                                            <input id="<?= 'id'.$i; ?>" type="hidden" name="id" value="<?= $fetch_orders['productID']; ?>">
+                                            <input id="<?= 'quantity'.$i; ?>" type="hidden" name="quantity" value="<?= $_GET['quantity']; ?>">
+                                            <input id="<?= 'order_type'.$i; ?>" type="hidden" name="order_type" value="<?= $_GET['type']; ?>">
                                         </form>
                                         <div id="<?= $i ?>" class="product-close-btn fas fa-times-circle"></div>
                                     </div>
@@ -177,6 +184,9 @@
                                 <div class="<?= 'product-card product-card'.$i ?>">
                                     <div class="card">
                                         <div class="img-box">
+                                            <div class="loading2" id="<?= 'loading'.$i; ?>" style="display:none;">
+                                                <img src="../assets/gif/spinner.gif">
+                                            </div>
                                            <?php
                                                 echo'<img  src="data:image/png;base64,' .base64_encode($fetch_details['productImage']).'" alt="Pesto Garlic Cheesy Bread" width="80px" class="product-img"/>';
                                             ?>
@@ -185,13 +195,13 @@
                                             <h4 class="product-name"><?= $fetch_details['productName'];?></h4>
                                             <div class="wrapper">
                                                 <div class="product-qty">
-                                                    <button id="decrement">
+                                                    <button id="decrement" name="<?= $i ?>">
                                                     <ion-icon name="remove-outline"></ion-icon>
                                                     </button>
 
                                                     <span id="quantity"><?= $fetch_orders['OICartQty']; ?></span>
 
-                                                    <button id="increment">
+                                                    <button id="increment" name="<?= $i ?>">
                                                     <ion-icon name="add-outline"></ion-icon>
                                                     </button>
                                                 </div>
@@ -201,9 +211,9 @@
                                             </div>
                                         </div>
                                         <form id="<?= 'payment_form'.$i; ?>" method="post">
-                                            <input type="hidden" name="id" value="<?= $fetch_orders['productID']; ?>">
-                                            <input type="hidden" name="qty" value="<?= $fetch_orders['OICartQty']; ?>">
-                                            <input type="hidden" name="order_type" value="<?= $_GET['type']; ?>">
+                                            <input id="<?= 'id'.$i; ?>" type="hidden" name="id" value="<?= $fetch_orders['productID']; ?>">
+                                            <input id="<?= 'quantity'.$i; ?>" type="hidden" name="quantity" value="<?= $fetch_orders['OICartQty']; ?>">
+                                            <input id="<?= 'order_type'.$i; ?>" type="hidden" name="order_type" value="<?= $_GET['type']; ?>">
                                         </form>
                                         <div id="<?= $i ?>" class="product-close-btn fas fa-times-circle">
                                         </div>
@@ -221,7 +231,7 @@
                                 <label for="card-address" class="label-default">Notes</label>
                                 <section>
                                     <div class="address-outline">
-                                        <textarea class="address-textarea" cols="100" rows="10"></textarea>
+                                        <textarea id="notes" class="address-textarea" cols="100" rows="10"></textarea>
                                     </div>
                                 </section>
                                 </div>
@@ -231,9 +241,9 @@
                                 <div class="discount-token">
                                     <label for="discount-token" class="label-default">Payment Method</label>
                                     <div class="wrapper-flex">
-                                        <select class="form-control">
-                                            <option class="selection">Cash on Delivery</option>
-                                            <option>Blaze Pizza E-wallet</option>
+                                        <select id="payment_option" class="form-control">
+                                            <option value="COD" class="selection">Cash on Delivery</option>
+                                            <option value="Blaze Pizza e-Wallet" class="selection">Blaze Pizza E-wallet</option>
                                         </select>
                                     </div>
                                 </div>
@@ -244,7 +254,7 @@
                                         <div id="message"></div>
                                         <div class="wrapper-flex">
                                             <form id="promo">
-                                                <input type="text" name="discount-token" id="discount-token" class="input-default">
+                                                <input type="text" name="discount-token" id="discount-token" class="input-default" value="">
                                                 <button id="promo_button" type="button" class="btn btn-outline">Apply</button>
                                                 <button style="display: none" id="remove_promo" type="button" class="btn btn-outline">Remove</button>
                                         </div>

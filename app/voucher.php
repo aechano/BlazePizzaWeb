@@ -6,7 +6,6 @@ if(!isset($_SESSION)) {
 } 
 
 if(!isset($_POST['discount-token']) || !isset($_SESSION['customerID'])){
-	$_SESSION['promo'] = 0;
 	echo 0;
 	return;
 }
@@ -16,15 +15,15 @@ $promo->execute([strtolower($_POST['discount-token'])]);
 
 if($promo->rowCount() > 0) {
    for($i=0;$i<$promo->rowCount();$i++){   
-        $fetch_promo = $promo->fetch(PDO::FETCH_ASSOC);
-        $_SESSION['promo'] = $fetch_promo['rewards'];
-        echo $fetch_promo['rewards'];
-		return;
+   		$fetch_promo = $promo->fetch(PDO::FETCH_ASSOC);
+   		if($fetch_promo['availability'] != 0) {
+	        echo $fetch_promo['rewards'];
+			return;
+   		} 
    }
-} else {
-	 $_SESSION['promo'] = 0;
-	 echo 0;
-	 return;
-}
+} 
+
+echo 0;
+return;
 
 ?>

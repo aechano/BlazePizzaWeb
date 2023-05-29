@@ -403,6 +403,10 @@ gap: 13px;
     margin-left: 0;
 }
 
+.img-box{
+ position: relative;
+}
+
 
 /* .stamps {
     box-sizing: border-box;

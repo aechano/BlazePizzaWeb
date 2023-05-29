@@ -38,13 +38,30 @@ if(isset($_GET['logout'])){
             <div class="submenu">
                 <div class="user-info">
                     <?php
+
                         $select_user = $conn->prepare("SELECT * FROM `customer` WHERE customerID = ?");
                         $select_user->execute([$customer_id]);
                         if($select_user->rowCount() > 0){
                             while($fetch_user = $select_user->fetch(PDO::FETCH_ASSOC)){
-                               echo '<p class="greetings">Hello, <span>'.$fetch_user['custFname'].'</span></p>';
+                                echo '<p class="greetings">Hello, <span>'. $fetch_user['custFname'] .'</span></p>';
                             }
-                         }
+                        }
+
+                        $balance = "0";
+                        $ewallet = $conn->prepare("SELECT * FROM `ewallet` WHERE customerID = ? and eWalletStatus = 'Activated'");
+                        $ewallet->execute([$_SESSION['customerID']]);
+
+                        if($ewallet->rowCount() > 0) {
+                            $fetch_balance = $ewallet->fetch(PDO::FETCH_ASSOC);
+                            $balance = $fetch_balance['balance'];
+                        }
+
+                        echo '<p class="greetings">Balance: $<span>'. sprintf("%.2f", $balance) .'</span></p>';
+
+                        
+                        
+
+
                     ?>
                 </div>
                 <hr>
@@ -52,7 +69,7 @@ if(isset($_GET['logout'])){
                 <a href="../app/account_settings.php" class="sub-menu-link">
                     <p>Account Settings</p></a>
 
-                <a href="#" class="sub-menu-link">
+                <a href="../app/order_status.php" class="sub-menu-link">
                     <p>Orders</p></a>
 
                 <a href="#" class="sub-menu-link">
@@ -87,7 +104,7 @@ if(isset($_GET['logout'])){
 
     <?php 
 
-        if(!strpos($_SERVER['REQUEST_URI'], "payment.php")) {
+        if(!strpos($_SERVER['REQUEST_URI'], "payment.php") && isset($_SESSION['customerID'])) {
 
     ?>   
 

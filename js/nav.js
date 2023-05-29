@@ -41,14 +41,16 @@ $(".remove_products").bind('click', function (e) {
     url: "../app/order.php?action=remove_order",
     data: $("#form" + self.attr('id')).serialize(),
     success: function(data) {
-      if(data != "success") { 
-        alert("Something went wrong!");
+      data = JSON.parse(data);
+      if(data['hasError'] != false) { 
+        alert(data['message']);
+        return;
       }
-     $('.box' + self.attr('id')).remove();
-     if( $(".shopping-cart").children('section').children('.box').length == 0) {
-       $(".shopping-cart").children('section').append('<div id="empty" class="butn">Empty</div>');
-         $("#order_button").remove();
-     }
+      $('.box' + self.attr('id')).remove();
+      if( $(".shopping-cart").children('section').children('.box').length == 0) {
+        $(".shopping-cart").children('section').append('<div id="empty" class="butn">Empty</div>');
+        $("#order_button").remove();
+      }
 
     }
   })

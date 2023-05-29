@@ -149,4 +149,10 @@ $(function() {
         console.log(currentValue);
 });
 
+setTimeout(function(){
+    if ($('#info').length > 0) {
+        $('#info').remove();
+    }
+}, 5000)
+
   

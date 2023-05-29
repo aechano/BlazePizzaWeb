@@ -1,16 +1,8 @@
 'use strict';
 
-// all initial elements
-const payAmountBtn = document.querySelector('#payAmount');
-const decrementBtn = document.querySelectorAll('#decrement');
-const quantityElem = document.querySelectorAll('#quantity');
-const incrementBtn = document.querySelectorAll('#increment');
-const priceElem = document.querySelectorAll('#price');
-const subtotalElem = document.querySelector('#subtotal');
-const taxElem = document.querySelector('#tax');
-const totalElem = document.querySelector('#total');
-const promo_code = document.querySelector('#promo_code');
-const shipping = document.querySelector('#shipping');
+let payAmountBtn = document.querySelector('#payAmount');
+let incrementBtn = document.querySelectorAll('#increment');
+let decrementBtn = document.querySelectorAll('#decrement');
 
 window.onload = function() {
   totalCalc();
@@ -31,7 +23,27 @@ for (let i = 0; i < incrementBtn.length; i++) {
     // show the `increment` variable value on `quantity` element
     // based on clicked `increment` button sibling.
     this.previousElementSibling.textContent = increment;
+    var quantity = this.previousElementSibling;
+    var self = this;
+    var $loader = $('#loading' + this.getAttribute("name"));
+    $loader.show();
+    $("#payment_form" + this.getAttribute("name")).children('#quantity' + this.getAttribute("name")).val(increment);
 
+    setTimeout(function () {
+      $.ajax({
+        type: "POST",
+        url: "../app/add_to_cart.php",
+        data: $("#payment_form" + self.getAttribute("name")).serialize(),
+        success: function(data) {
+          if(data != "success") { 
+            alert("Something went wrong!")
+            quantity.textContent = increment-1;
+          }
+          $loader.hide();
+        }
+      })
+    }, 1000);
+    
     totalCalc();
 
   });
@@ -49,7 +61,27 @@ for (let i = 0; i < incrementBtn.length; i++) {
     // show the `decrement` variable value on `quantity` element
     // based on clicked `decrement` button sibling.
     this.nextElementSibling.textContent = decrement;
+    var quantity = this.nextElementSibling;
+    var self = this;
+    var $loader = $('#loading' + this.getAttribute("name"));
+    $loader.show();
+    $("#payment_form" + this.getAttribute("name")).children('#quantity' + this.getAttribute("name")).val(decrement);
 
+    setTimeout(function () {
+      $.ajax({
+        type: "POST",
+        url: "../app/add_to_cart.php",
+        data: $("#payment_form" + self.getAttribute("name")).serialize(),
+        success: function(data) {
+          if(data != "success") { 
+            alert("Something went wrong!")
+            quantity.textContent = decrement+1;
+          }
+          $loader.hide();
+        }
+      })
+    }, 1000);
+    
     totalCalc();
 
   });
@@ -58,6 +90,14 @@ for (let i = 0; i < incrementBtn.length; i++) {
 
 // function: for calculating total amount of product price
 const totalCalc = function () {
+
+  let quantityElem = document.querySelectorAll('#quantity');
+  let priceElem = document.querySelectorAll('#price');
+  let subtotalElem = document.querySelector('#subtotal');
+  let taxElem = document.querySelector('#tax');
+  let totalElem = document.querySelector('#total');
+  let promo_code = document.querySelector('#promo_code');
+  let shipping = document.querySelector('#shipping');
 
   // declare all initial variable
   const tax = 0.05;
@@ -84,6 +124,7 @@ const totalCalc = function () {
   // calcualting the `total`
   total = ((subtotal + totalTax + Number(shipping.textContent)) - Number(promo_code.textContent));
 
+  console.log(total);
 
   // show the `total` variable value on `totalElem` & `payAmou,ntBtn` element
   totalElem.textContent = total.toFixed(2);
@@ -91,6 +132,7 @@ const totalCalc = function () {
 
 }
 
+//fetch voucher
 $('body').on('click' , '#promo_button', function() {
     $.ajax({
     type: "POST",
@@ -103,6 +145,7 @@ $('body').on('click' , '#promo_button', function() {
         $("#remove_promo").show();
         $("#promo_button").hide();
         $("#discount-token").prop("readonly", true);
+        $('#message').empty();
         $("#message").append('<div class="success"><p>Promo code added!</p></div>');
 
         setTimeout(function(){
@@ -110,6 +153,7 @@ $('body').on('click' , '#promo_button', function() {
         }, 5000);
       } else {
         $("#discount-token").val("");
+        $('#message').empty();
         $("#message").append('<div class="error"><p>Invalid promo code!</p></div>');
 
         setTimeout(function(){
@@ -123,6 +167,7 @@ $('body').on('click' , '#promo_button', function() {
   })
 });
 
+//remove promo
 $('body').on('click' , '#remove_promo', function() {
 
     $("#remove_promo").hide();
@@ -146,22 +191,63 @@ $('body').on('click' , '#remove_promo', function() {
 });
 
 
+//remove order
 $(".product-close-btn").bind('click', function (e) {
 
   var self = $(this);
-  console.log($("#form" + self.attr('id')));
-
+ 
   $.ajax({
     type: "POST",
     url: "../app/order.php?action=remove_order",
     data: $("#payment_form" + self.attr('id')).serialize(),
     success: function(data) {
-      if(data != "success") { 
-        alert("Something went wrong!");
-      }
-     $('.product-card' + self.attr('id')).empty();
-     totalCalc();
+      data = JSON.parse(data);
+      if(data['hasError'] != false) { 
+        alert(data['message']);
+        return;
+      } 
+      $('.product-card' + self.attr('id')).empty();
+      totalCalc();
     }
   })
-  
+
+});
+
+
+//proceed to order
+$("#submit").bind('click', function (e) {
+
+  $('.loading1').show();
+  var data = {
+    "promo_code" : $('#discount-token').val(),
+    "payment_option": $('#payment_option').find(":selected").val(),
+    "notes" : $('#notes').val(),
+    "address": $('#address').val(),
+    "order_type" : $('#order_type').val(),
+    "id" : $('#id0').val(),
+    "quantity" : $('#quantity0').val(),
+  }
+
+  console.log(data);
+
+  setTimeout(function () {
+    $.ajax({
+      type: "POST",
+      url: "../app/order.php?action=order",
+      data: data,
+      success: function(data) {
+        data = JSON.parse(data);
+        if(data['hasError'] != false) { 
+          $('#message').empty();
+          $("#message").append('<div class="error"><p>' + data['message'] +'</p></div>');
+          $('.loading1').hide();
+          return;
+        }
+        
+        window.location = '../app/order_status.php?order_id=' + data['message'];
+        $('.loading1').hide();
+      }
+    })
+  }, 1000);
+
 });

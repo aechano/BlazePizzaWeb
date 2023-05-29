@@ -46,7 +46,7 @@ body{
     /*width: 50%;*/
     margin-top: 1rem;
     border-radius: .5rem;
-    padding:32px;
+    padding: 15px;
     font-size: 1rem;
     color:white;
     background-color: var(--main-color);
@@ -140,6 +140,7 @@ body{
     justify-content: space-between;
     position: relative;
     margin-top: 10rem;
+    height: 200px;
 }
 
 .footer .container .footer_navbar{
@@ -347,6 +348,25 @@ body{
     z-index: 9999;
     background: url("../assets/gif/spinner.gif") 50% 50% no-repeat;
     background-size: 50px;
+    background-color: black;
+    opacity: .5;
+}
+
+.loading2 {
+    position: absolute;
+    z-index: 999;
+    height: 15px;
+    width: 15px;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.loading2 img {
+    width: 15px;
 }
 
 .remove_products {
@@ -359,6 +379,30 @@ body{
     font-size: 60px;
     background-color: white;
     border-radius: 50%;
+}
+
+.ongoing {
+    color: orange;
+    padding: 10px 30px;
+}
+
+.completed {
+    color: green;
+    padding: 10px 30px
+}
+
+.border {
+    border-width: thin;
+}
+
+.order {
+    border-bottom: 1px dashed black;
+    margin-top: 30px !important;
+    margin-bottom: 30px;
+}
+
+.order_button {
+    text-align: right;
 }
 
  /* .message{

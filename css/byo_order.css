@@ -8,7 +8,7 @@
 }
 
 .choose-ing{
-  width: 50%;
+  width: 35%;
 }
 
 .choose-ing ul li img{
@@ -380,6 +380,10 @@ input {
   display: none; /* or any other visual styling you prefer */
 }
 
+.error,
+.success {
+  margin-left: 0px;
+}
 
 
 

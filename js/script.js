@@ -79,3 +79,32 @@ pwShowHide.forEach(eyeIcon =>{
 //     container.classList.remove("active");
 // });
 
+//receive to order
+$("#receive").bind('click', function (e) {
+
+  $('.loading1').show();
+  var data = {
+    "order_id" : $('#order_id').val(),
+  }
+ 
+  setTimeout(function () {
+    $.ajax({
+      type: "POST",
+      url: "../app/order.php?action=received",
+      data: data,
+      success: function(data) {
+        data = JSON.parse(data);
+        if(data['hasError'] != false) { 
+          $('#message').empty();
+          $("#message").append('<div class="error"><p>' + data['message'] +'</p></div>');
+          return;
+        }
+        
+        window.location.reload();
+        $('.loading1').hide();
+      }
+    })
+  }, 1000);
+
+});
+
