@@ -16,10 +16,10 @@
 
 
 #reviews-box {
+    background-color: #d1d1d1;
     border-radius: 30px;
     padding: 3% 5%;
     margin: 0 2%;
-    border: 1px solid black;
   }
   
   #reviews-box h3 {
@@ -34,14 +34,13 @@
   }
   
   #reviews-box .reviews {
-    height: 500px;
+    height: 300px;
     overflow-y: scroll;
     margin-top: 20px;
     border: 1px solid rgb(255, 255, 255);
     border-radius: 5px;
     padding: 10px;
     background-color: #fdf7f7;
-    scrollbar-width: thin;
 
   }
   
@@ -249,3 +248,66 @@
     font-family: "Inter_Regular";
     src: url("../assets/Fonts/inter/Inter-Regular.otf");
 }
+
+
+#new-box {
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  #new-box h3 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  #new-box h5 {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+  
+  .new-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .new-card {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    max-width: 300px;
+    text-align: left;
+  }
+  
+  .new-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .new-card-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .new_rating {
+    margin-left: auto;
+  }
+  
+  .new_star {
+    color: gold;
+  }
+  
+  .empty-new_star {
+    color: lightgray;
+  }
+  
+  .review-card p {
+    margin-top: 0;
+  }
+  

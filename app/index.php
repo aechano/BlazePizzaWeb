@@ -101,114 +101,67 @@
                     </a>
                 </section>
 
-                <section>
-                    <br><br>
-                    <div id="reviews-box">
-                        <h3>Customer Reviews</h3>
-                        <h5>See the latest reviews of Blaze Pizza Red Deer:</h5>
-                        <div class="reviews">
-                            <div class="review">
-                            <div class="review-header">
-                                <h4>John Doe</h4>
-                                <div class="rating">
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                </div>
-                            </div>
-                            <p>"Blaze Pizza is amazing! I love the selection of toppings and the crust is perfect."</p>
-                            </div>
-                            
-                            <div class="review">
-                            <div class="review-header">
-                                <h4>Jane Smith</h4>
-                                <div class="rating">
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star empty">&#9733;</span>
-                                </div>
-                            </div>
-                            <p>"Great pizza, but the service was a bit slow. Would come back for the food though."</p>
-                            </div>
-                            
-                            <div class="review">
-                            <div class="review-header">
-                                <h4>Bob Johnson</h4>
-                                <div class="rating">
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star empty">&#9733;</span>
-                                <span class="star empty">&#9733;</span>
-                                </div>
-                            </div>
-                            <p>"Decent pizza, but nothing special. Could use more seasoning in the sauce."</p>
-                            </div>
-
-                            <div class="review">
-                            <div class="review-header">
-                                <h4>Mary Smith</h4>
-                                <div class="rating">
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star empty">&#9733;</span>
-                                </div>
-                            </div>
-                            <p>"Blaze Pizza is great! The pizzas are delicious and the staff is always friendly. I deducted one star because the restaurant can get a bit crowded at peak times."</p>
-                            </div>
-
-                            <div class="review">
-                            <div class="review-header">
-                                <h4>Alex Rodriguez</h4>
-                                <div class="rating">
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                </div>
-                            </div>
-                            <p>"I'm a big fan of Blaze Pizza. The crust is crispy and the toppings are fresh and flavorful. The staff is always attentive and the service is quick. Highly recommend!"</p>
-                            </div>
-
-                            <div class="review">
-                            <div class="review-header">
-                                <h4>Emily Johnson</h4>
-                                <div class="rating">
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star empty">&#9733;</span>
-                                <span class="star empty">&#9733;</span>
-                                </div>
-                            </div>
-                            <p>"I had high hopes for Blaze Pizza, but was a bit disappointed. The pizza was decent, but nothing special. The restaurant was also quite loud and crowded. Not sure if I would return."</p>
-                            </div>
-
-                            <div class="review">
-                            <div class="review-header">
-                                <h4>Tom Lee</h4>
-                                <div class="rating">
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                <span class="star">&#9733;</span>
-                                </div>
-                            </div>
-                            <p>"Blaze Pizza is one of my favorite pizza places. I love the option to create my own pizza and choose from a variety of toppings. The staff is always friendly and the service is fast. Highly recommend!"</p>
+<!-- MODIFIED CODE BEGINS HERE -->    
+                <section id="new-box">
+                    <h3>Customer Reviews</h3>
+                    <h5>See what our customers are saying</h5>
+                    <div class="new-container">
+                        <div class="new-card">
+                        <div class="new-card-header">
+                            <h4>John Doe</h4>
+                            <div class="new_rating">
+                            <span class="new_star">&#9733;</span>
+                            <span class="new_star">&#9733;</span>
+                            <span class="new_star">&#9733;</span>
+                            <span class="new_star">&#9733;</span>
+                            <span class="empty-new_star">&#9734;</span>
                             </div>
                         </div>
+                        <p>I absolutely love Blaze Pizza in Red Deer! The pizzas are delicious, and they have a wide variety of toppings to choose from. The crust is thin and crispy, just the way I like it. The staff is friendly and always provides excellent service. I highly recommend trying their BBQ Chicken pizza!</p>
                         </div>
-
-                </section>
+                        <div class="new-card">
+                        <div class="new-card-header">
+                            <h4>Jane Smith</h4>
+                            <div class="new_rating">
+                            <span class="new_star">&#9733;</span>
+                            <span class="new_star">&#9733;</span>
+                            <span class="new_star">&#9733;</span>
+                            <span class="empty-new_star">&#9734;</span>
+                            <span class="empty-new_star">&#9734;</span>
+                            </div>
+                        </div>
+                        <p>Blaze Pizza in Red Deer is my go-to place for a quick and delicious meal. The build-your-own pizza concept is fantastic, as I can customize my pizza exactly how I want it. The ingredients are always fresh, and the flavors are amazing. The prices are reasonable, making it a great value for the quality you get.</p>
+                        </div>
+                        <div class="new-card">
+                        <div class="new-card-header">
+                            <h4>David Johnson</h4>
+                            <div class="new_rating">
+                            <span class="new_star">&#9733;</span>
+                            <span class="new_star">&#9733;</span>
+                            <span class="empty-new_star">&#9734;</span>
+                            <span class="empty-new_star">&#9734;</span>
+                            <span class="empty-new_star">&#9734;</span>
+                            </div>
+                        </div>
+                        <p>I recently visited Blaze Pizza in Red Deer, and it exceeded my expectations. The staff was attentive and helpful, and the pizza was incredibly delicious. The thin crust had the perfect balance of chewiness and crispiness. The restaurant has a cozy and inviting atmosphere, making it a great place to enjoy a meal with friends or family.</p>
+                        </div>
+                        <div class="new-card">
+                        <div class="new-card-header">
+                            <h4>Emily Wilson</h4>
+                            <div class="new_rating">
+                            <span class="new_star">&#9733;</span>
+                            <span class="new_star">&#9733;</span>
+                            <span class="empty-new_star">&#9734;</span>
+                            <span class="empty-new_star">&#9734;</span>
+                            <span class="empty-new_star">&#9734;</span>
+                            </div>
+                        </div>
+                        <p>Blaze Pizza in Red Deer is a must-visit for pizza lovers. The quality and taste of their pizzas are outstanding. I appreciate the fact that they use fresh ingredients and offer a variety of options for toppings and sauces. The staff is friendly and helpful, ensuring a pleasant dining experience. I highly recommend trying their Art Lover pizza!</p>
+                        </div>
+                    </div>
+                    </section>
             </div>
+<!-- MODIFIED CODE ENDS HERE -->    
             
             <!-- products ends here -->
 

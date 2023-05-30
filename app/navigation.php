@@ -89,7 +89,7 @@ if(isset($_GET['logout'])){
                 <a href="../app/order_status.php" class="sub-menu-link">
                     <p>Orders</p></a>
 
-                <a href="#" class="sub-menu-link">
+                <a href="../app/privacy_policy.php" class="sub-menu-link" id="popupLink">
                     <p>Privacy Policy</p></a>
 
                 <a href="index.php?logout" class="sub-menu-link">
