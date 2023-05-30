@@ -1,3 +1,26 @@
+<?php
+
+include '../app/config.php';
+
+session_start();
+
+$admin_id = $_SESSION['admin_id'];
+
+if(!isset($admin_id)){
+   header('location:admin_login.php');
+};
+
+if(isset($_GET['delete'])){
+   $delete_id = $_GET['delete'];
+   $delete_order = $conn->prepare("DELETE FROM customer WHERE customerID = ?");
+   $delete_order->execute([$delete_id]);
+   header('location:user_accounts.php');
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,13 +45,30 @@
    <h1 class="heading">user accounts</h1>
 
    <div class="box-container">
+      
+   <?php
+      $select_accounts = $conn->prepare("SELECT * FROM customer");
+      $select_accounts->execute();
+      if($select_accounts->rowCount() > 0){
+         while($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)){   
+   ?>
 
-   <div class="box">
-      <p> user id : <span>user id here</span> </p>
-      <p> username : <span>username here</span> </p>
-      <p> email : <span>email here</span> </p>
-      <a href="users_accounts.php" onclick="return confirm('delete this account?')" class="delete-btn">delete</a>
+<div class="box">
+      <p> User ID : <span><?= $fetch_accounts['customerID']; ?></span> </p>
+      <p> First Name : <span><?= $fetch_accounts['custFname']; ?></span> </p>
+      <p> Last Name : <span><?= $fetch_accounts['custLname']; ?></span> </p>
+      <p> email : <span><?= $fetch_accounts['custEmail']; ?></span> </p>
+      <a href="user_accounts.php?delete=<?= $fetch_accounts['customerID']; ?>" onclick="return confirm('delete this account?')" class="delete-btn">delete</a>
    </div>
+
+   <?php
+         }
+      }else{
+         echo '<p class="empty">no accounts available!</p>';
+      }
+   ?>
+
+
    </div>
 
 </section>
@@ -37,4 +77,4 @@
 <script src="../js/admin_script.js"></script>
 
 </body>
-</html>
+</html> 

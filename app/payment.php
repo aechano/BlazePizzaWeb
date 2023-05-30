@@ -119,7 +119,8 @@
                                     <div class="card">
                                         <div class="img-box">
                                            <?php
-                                                echo'<img  src="data:image/png;base64,' .base64_encode($fetch_orders['productImage']).'" alt="Pesto Garlic Cheesy Bread" width="80px" class="product-img"/>';
+                                                $imagePath = '../admin/uploaded_images/' . $fetch_orders['image'];
+                                                echo '<img src="' . $imagePath . '" alt="Pesto Garlic Cheesy Bread" width="80px" class="product-img">';
                                             ?>
                                         </div>
                                         <div class="detail">
@@ -188,7 +189,8 @@
                                                 <img src="../assets/gif/spinner.gif">
                                             </div>
                                            <?php
-                                                echo'<img  src="data:image/png;base64,' .base64_encode($fetch_details['productImage']).'" alt="Pesto Garlic Cheesy Bread" width="80px" class="product-img"/>';
+                                                $imagePath = '../admin/uploaded_images/' . $fetch_details['image'];
+                                                echo'<img src="' . $imagePath . '" alt="Pesto Garlic Cheesy Bread" width="80px" class="product-img">';
                                             ?>
                                         </div>
                                         <div class="detail">

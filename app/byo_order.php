@@ -268,9 +268,8 @@ if(isset($_POST['add_to_cart'])) {
                 $select_product->execute([$product_id]);
                 if($select_product->rowCount() > 0){
                     $fetch_product = $select_product->fetch(PDO::FETCH_ASSOC);
-                }
-                if (isset($fetch_product['productImage'])){
-                  echo'<img class="image1" src="data:image/png;base64,'.base64_encode($fetch_product['productImage']).'"/>';
+                    $imagePath = '../admin/uploaded_images/' . $fetch_product['image'];
+                    echo'<img class="image1" src="' . $imagePath . '" alt="">';
                 }else{
                   echo'<p class="empty">No image selected</p>';
                 }

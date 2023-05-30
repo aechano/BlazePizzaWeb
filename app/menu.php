@@ -59,23 +59,24 @@
                             <div class="item hotty">                             
                                 <?php
                                     $redirect = '';
-                                    $categ = "What's Hot";
+                                    $categ = "What is Hot";
                                     $select_menu = $conn->prepare("SELECT * FROM `product` WHERE productType = ?");
                                     $select_menu->execute([$categ]);
                                     if($select_menu->rowCount() > 0){
                                         while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){      
                                             
-                                            if ($fetch_orders['productName'] == 'Build Your Own'){
+                                            if ($fetch_menu['productName'] == 'Build Your Own'){
                                                 $redirect = '../app/byo_order.php?id='.$fetch_menu['productID'];
                                             }else{
-                                                $redirect = '../app/fixed_order.php?id='.$fetch_orders['productID'];
+                                                $redirect = '../app/fixed_order.php?id='.$fetch_menu['productID'];
                                             }    
                                 ?>
                                 
                                 <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
-                                            echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
+                                            $imagePath = '../admin/uploaded_images/' . $fetch_menu['image'];
+                                            echo '<img src="' . $imagePath . '" alt="">';
                                         ?>
                                     </div>
                                     <div class="details">
@@ -111,7 +112,8 @@
                                 <div class="menu-products"  onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
-                                            echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
+                                            $imagePath = '../admin/uploaded_images/' . $fetch_menu['image'];
+                                            echo '<img src="' . $imagePath . '" alt="">';
                                         ?>
                                     </div>
                                     <div class="details">
@@ -146,7 +148,8 @@
                                 <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
-                                            echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
+                                            $imagePath = '../admin/uploaded_images/' . $fetch_menu['image'];
+                                            echo '<img src="' . $imagePath . '" alt="">';
                                         ?>
                                     </div>
                                     <div class="details">
@@ -181,7 +184,8 @@
                                 <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
-                                            echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
+                                            $imagePath = '../admin/uploaded_images/' . $fetch_menu['image'];
+                                            echo '<img src="' . $imagePath . '" alt="">';
                                         ?>
                                     </div>
                                     <div class="details">
@@ -216,7 +220,8 @@
                                 <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
-                                            echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
+                                            $imagePath = '../admin/uploaded_images/' . $fetch_menu['image'];
+                                            echo '<img src="' . $imagePath . '" alt="">';
                                         ?>
                                     </div>
                                     <div class="details">
@@ -251,7 +256,8 @@
                                 <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
-                                            echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
+                                            $imagePath = '../admin/uploaded_images/' . $fetch_menu['image'];
+                                            echo '<img src="' . $imagePath . '" alt="">';
                                         ?>
                                     </div>
                                     <div class="details">
@@ -286,7 +292,8 @@
                                 <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
-                                            echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
+                                            $imagePath = '../admin/uploaded_images/' . $fetch_menu['image'];
+                                            echo '<img src="' . $imagePath . '" alt="">';
                                         ?>
                                     </div>
                                     <div class="details">
@@ -321,7 +328,8 @@
                                 <div class="menu-products" onclick="window.location.href = '<?= $redirect?>'">
                                     <div class="img">
                                         <?php
-                                            echo'<img src="data:image/png;base64,' .base64_encode($fetch_menu['productImage']).'"/>';
+                                            $imagePath = '../admin/uploaded_images/' . $fetch_menu['image'];
+                                            echo '<img src="' . $imagePath . '" alt="">';
                                         ?>
                                     </div>
                                     <div class="details">

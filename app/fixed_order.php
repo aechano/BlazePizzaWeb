@@ -129,8 +129,9 @@
           
           <div class="order-image" style="background-image: url(); ">
             <?php
-              if (isset($fetch_product['productImage'])) {
-                echo'<img class="image1" src="data:image/png;base64,'.base64_encode($fetch_product['productImage']).'"/>';
+              $imagePath = '../admin/uploaded_images/' . $fetch_product['image'];
+              if (isset($fetch_product['image'])) {
+                echo '<img class="image1" src="' . $imagePath . '" alt="">';
               } 
             ?>
           </div>

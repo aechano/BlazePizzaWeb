@@ -1,3 +1,17 @@
+<?php
+   if(isset($message)){
+      foreach($message as $message){
+         echo '
+         <div class="message">
+            <span>'.$message.'</span>
+            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+         </div>
+         ';
+      }
+   }
+?>
+
+
 <header class="header">
 
 <section class="flex">
@@ -9,11 +23,10 @@
       <a href="admin_ingredients.php">ingredients</a>
       <a href="admin_orders.php">orders</a>
       <a href="admin_promos.php">promos</a>
-      <a href="#">reports</a>
-      <a href="#">email</a>
-      <a href="#">ewallet</a>
-      <a href="user_accounts.php">user</a>
-      <a href="admin_accounts.php">admin</a>
+      <a href="emails.php">email</a>
+      <a href="ewallet_users.php">ewallet</a>
+      <a href="user_accounts.php">users</a>
+      <a href="admin_accounts.php">admins</a>
    </nav>
 
    <div class="icons">
@@ -22,7 +35,12 @@
    </div>
 
    <div class="profile">
-      <p></p>
+   <?php
+            $select_profile = $conn->prepare("SELECT * FROM `admin` WHERE id = ?");
+            $select_profile->execute([$admin_id]);
+            $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
+         ?>
+      <p><?= $fetch_profile['name']; ?></p>
       <a href="admin_profile_update.php" class="btn">update profile</a>
       <a href="admin_login.php" class="delete-btn">logout</a>
       <div class="flex-btn">

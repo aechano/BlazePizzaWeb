@@ -89,7 +89,8 @@
                                             <div class="d-flex mb-2">
                                                 <div class="flex-shrink-0">
                                                     <?php
-                                                        echo'<img  src="data:image/png;base64,' .base64_encode($fetch_product['productImage']).'" alt="" class="img-fluid"/>';
+                                                        $imagePath = '../admin/uploaded_images/' . $fetch_product['image'];
+                                                        echo'<img src="' . $imagePath . '" alt="" class="img-fluid">';
                                                     ?>
                                                 </div>
                                                 <div class="order-name">

@@ -1,3 +1,60 @@
+<?php
+
+include '../app/config.php';
+
+session_start();
+
+$admin_id = $_SESSION['admin_id'];
+
+if(!isset($admin_id)){
+   header('location:admin_login.php');
+};
+
+if(isset($_POST['update_product'])){
+
+   $pid = $_POST['pid'];
+   $name = $_POST['name'];
+   $name = filter_var($name, FILTER_SANITIZE_STRING);
+   $type = $_POST['type'];
+   $type = filter_var($type, FILTER_SANITIZE_STRING);
+   $price = $_POST['price'];
+   $price = filter_var($price, 
+   FILTER_SANITIZE_STRING);
+   $qty = $_POST['qty'];
+   $qty = filter_var($qty, 
+   FILTER_SANITIZE_STRING);
+   $desc = $_POST['desc'];
+   $desc = filter_var($desc, FILTER_SANITIZE_STRING);
+
+   $old_image = $_POST['old_image'];
+   $image = $_FILES['image']['name'];
+   $image = filter_var($image, FILTER_SANITIZE_STRING);
+   $image_size = $_FILES['image']['size'];
+   $image_tmp_name = $_FILES['image']['tmp_name'];
+   $image_folder = 'uploaded_images/'.$image;
+
+   $update_product = $conn->prepare("UPDATE `product` SET productName = ?, productType = ?, productQty = ?, productPrice = ?, productDesc = ? WHERE productID = ?");
+   $update_product->execute([$name, $type, $qty, $price, $desc, $pid]);
+
+   $message[] = 'product updated successfully!';
+
+   if(!empty($image)){
+      if($image_size > 2000000){
+         $message[] = 'image size is too large!';
+      }else{
+         $update_image = $conn->prepare("UPDATE `product` SET image = ? WHERE productID = ?");
+         $update_image->execute([$image, $pid]);
+         move_uploaded_file($image_tmp_name, $image_folder);
+         unlink('uploaded_images/'.$old_image);
+         $message[] = 'image updated successfully!';
+      }
+   }
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,19 +77,43 @@
 <section class="update-product">
 
    <h1 class="heading">update product</h1>
+   <?php
+      $update_id = $_GET['update'];
+      $select_products = $conn->prepare("SELECT * FROM `product` WHERE productID = ?");
+      $select_products->execute([$update_id]);
+      if($select_products->rowCount() > 0){
+         while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
+   ?>
 
    <form action="" enctype="multipart/form-data" method="post">
-      <input type="hidden" name="pid" value="id here"> 
-      <input type="hidden" name="old_image" value="old image here">
-      <img src="" alt="to be update na image here">
-      <input type="text" class="box" required maxlength="100" placeholder="enter product name" name="name" value="to be update na pangalan ng product here">
-      <input type="number" min="0" class="box" required max="9999999999" placeholder="enter product price" onkeypress="if(this.value.length == 10) return false;" name="price" value="to be update na pangalan ng price here">
+   <input type="hidden" name="pid" value="<?= $fetch_products['productID']; ?>">
+
+      <input type="hidden" name="old_image" value="<?= $fetch_products['image']; ?>">
+
+      <img src="uploaded_images/<?= $fetch_products['image']; ?>" alt="">
+
+      <input type="text" class="box" required maxlength="100" placeholder="enter product name" name="name" value="<?= $fetch_products['productName']; ?>">
+
+      <input type="text" class="box" required maxlength="100" placeholder="enter product type" name="type" value="<?= $fetch_products['productType']; ?>">
+
+      <input type="number" min="0" class="box" required max="9999999999" placeholder="enter product quantity" onkeypress="if(this.value.length == 10) return false;" name="qty" value="<?= $fetch_products['productQty']; ?>">
+
+      <input type="number" min="0" class="box" required max="9999999999" placeholder="enter product price" onkeypress="if(this.value.length == 10) return false;" name="price" value="<?= $fetch_products['productPrice']; ?>">
+
+      <input type="text" class="box" required maxlength="100" placeholder="enter product type" name="desc" value="<?= $fetch_products['productDesc']; ?>">
+
       <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box">
       <div class="flex-btn">
          <input type="submit" value="update product" class="btn" name="update_product">
          <a href="admin_products.php" class="option-btn">go back</a>
       </div>
    </form>
+   <?php
+         }
+      }else{
+         echo '<p class="empty">no product found!</p>';
+      }
+   ?>
 
 
 </section>

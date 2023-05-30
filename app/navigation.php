@@ -135,7 +135,8 @@ if(isset($_GET['logout'])){
                 <div class="<?= 'box box'.$i ?>">
                    <!--  <a href="#" class="fas fa-times"></a>
                     <?php
-                        echo'<img src="data:image/png;base64,' .base64_encode($fetch_details['productImage']).'" alt=""/>';
+                        $imagePath = '../admin/uploaded_images/' . $fetch_details['image'];
+                        echo '<img src="' . $imagePath . '" alt="">';
                     ?>
                     <div class="read">
                         <p> <?= $fetch_details['productName']; ?> <span>($<?= $fetch_details['productPrice']; ?>)</span></p>
@@ -152,7 +153,8 @@ if(isset($_GET['logout'])){
                             <img src="../assets/gif/spinner.gif">
                         </div>
                         <?php
-                            echo'<img src="data:image/png;base64,' .base64_encode($fetch_details['productImage']).'" alt=""/>';
+                            $imagePath = '../admin/uploaded_images/' . $fetch_details['image'];
+                            echo '<img src="' . $imagePath . '" alt="">';
                         ?>
                     </div>
                      

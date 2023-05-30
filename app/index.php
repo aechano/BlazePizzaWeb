@@ -36,38 +36,67 @@
                             $redirect = '';
                             $select_orders = $conn->prepare("SELECT * FROM `product`");
                             $select_orders->execute();
-                            if($select_orders->rowCount() > 0){                           
+                            $total_orders = $select_orders->rowCount();
+                            if($total_orders >= 6){                           
                                 for($i=0;$i<6;$i++){   
                                     $fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC);
 
                                     if ($fetch_orders['productName'] == 'Build Your Own'){
-                                        $redirect = '../app/byo_order.php';
+                                        $redirect = '../app/byo_order.php?id='.$fetch_orders['productID'];
                                     }else{
                                         $redirect = '../app/fixed_order.php?id='.$fetch_orders['productID'];
                                     }
-
-
+                        
                         ?>
                         
                         <div class="featured-products"  onclick="window.location.href = '<?= $redirect?>'">
                             <div class="img">
-                                <?php
-                                    echo'<img src="data:image/png;base64,' .base64_encode($fetch_orders['productImage']).'"/>';
-                                ?>
+                                <img src="../admin/uploaded_images/<?= $fetch_orders['image'] ?>" alt="">
                             </div>
                             <div class="details">
-                            <p class="title"><span><?= $fetch_orders['productName'];?></span></p>
-                            <p class="description"><span><?= $fetch_orders['productDesc'];?></span></p>
-                            <p class="price">$<span><?= $fetch_orders['productPrice']; ?></span></p>
+                                <p class="title"><span><?= $fetch_orders['productName'];?></span></p>
+                                <p class="description"><span><?= $fetch_orders['productDesc'];?></span></p>
+                                <p class="price">$<span><?= $fetch_orders['productPrice']; ?></span></p>
+                            </div>
+                        </div>
+
+                        <?php
+                                }
+                            }
+                            elseif ($total_orders < 6 ) {
+                                for($i=0;$i<$total_orders;$i++){   
+                                    $fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC);
+
+                                    if ($fetch_orders['productName'] == 'Build Your Own'){
+                                        $redirect = '../app/byo_order.php?id='.$fetch_orders['productID'];
+                                    }else{
+                                        $redirect = '../app/fixed_order.php?id='.$fetch_orders['productID'];
+                                    }
+                        ?>
+
+                        <div class="featured-products"  onclick="window.location.href = '<?= $redirect?>'">
+                            <div class="img">
+                                <img src="../admin/uploaded_images/<?= $fetch_orders['image'] ?>" alt="">
+                            </div>
+                            <div class="details">
+                                <p class="title"><span><?= $fetch_orders['productName'];?></span></p>
+                                <p class="description"><span><?= $fetch_orders['productDesc'];?></span></p>
+                                <p class="price">$<span><?= $fetch_orders['productPrice']; ?></span></p>
                             </div>
                         </div>
 
                         <?php
                                 }
                             }else{
-                                echo '<p class="empty">nothing ordered yet!</p>';
+                                echo '<p class="empty">no products available!</p>';
                             }
                         ?>
+
+
+
+
+
+
                     </div>
                 </section>
 
