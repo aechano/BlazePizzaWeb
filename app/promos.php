@@ -23,11 +23,12 @@
 
              <div class="container">
                 <?php
-                    echo'<img  src="data:image/png;base64,' .base64_encode($a['promoImage']).'" alt="Promo Image" class="image"/>';
+                    $imagePath = '../admin/uploaded_images/' . $a['promoImage'] ;
+                    echo '<img src="' . $imagePath . '" alt="" class=image>';
                 ?>
 
                 <div class="text">
-                    <h2><?= $a['promoName'] ?></h2>
+                    <a href="../app/menu.php"><h2><?= $a['promoName'] ?></h2></a>
                     <p>Promo code: <?= $a['promoCode'] ?></p>
                     <br/>
                     <p><?= $a['description'] ?></p>

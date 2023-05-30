@@ -12,12 +12,12 @@
             <!-- carousel starts here -->
 
             <div class="carousel" data-flickity='{"autoPlay": true, "cellAlign": "center", "wrapAround": true,"freeScroll": true}' >
-                        <div class="carousel-cell" style="background-image: url('../assets/promos/Welcome.png')"></div>
-                        <div class="carousel-cell" style="background-image: url('../assets/promos/Stamps_Promo.png')"></div>
-                        <div class="carousel-cell" style="background-image: url('../assets/promos/Coupon_Discounted_Bread.png')"></div>
-                        <div class="carousel-cell" style="background-image: url('../assets/promos/Coupon_Discounted_Pizza.png')"></div>
-                        <div class="carousel-cell" style="background-image: url('../assets/promos/Coupon_Free_Drink.png')"></div>
-                        <div class="carousel-cell" style="background-image: url('../assets/promos/Poster_Redirect_to_Salad_Entree.png')"></div>
+                        <div class="carousel-cell" style="background-image: url('../assets/promos/welcome_display.png')"></div>
+                        <div class="carousel-cell" style="background-image: url('../assets/promos/jubilee_craze.png')"></div>
+                        <div class="carousel-cell" style="background-image: url('../assets/promos/cheesy_bread_poster.png')"></div>
+                        <div class="carousel-cell" style="background-image: url('../assets/promos/lovers_event.png')"></div>
+                        <div class="carousel-cell" style="background-image: url('../assets/promos/refreshments_voucher.png')"></div>
+                        <div class="carousel-cell" style="background-image: url('../assets/promos/seasonal_salad_info.png')"></div>
             </div>
 
             <!-- carousel ends here -->

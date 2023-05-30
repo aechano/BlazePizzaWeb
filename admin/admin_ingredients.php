@@ -92,7 +92,7 @@ if(isset($_GET['delete'])){
       <input type="text" class="box" required maxlength="100" placeholder="enter ingredient name" name="name">
       <input type="number" min="0" class="box" required max="9999999999" placeholder="enter product quantity" onkeypress="if(this.value.length == 10)return false;" name="qty">
       <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box" required>
-      <input type="submit" value="add ingredient" class="btn" name="add_product">
+      <input type="submit" value="add ingredient" class="btn" name="add_ingredient">
    </form>
 
 </section>

@@ -15,7 +15,7 @@ if(isset($_POST['update_payment'])){
    $order_id = $_POST['order_id'];
    $payment_status = $_POST['payment_status'];
    $payment_status = filter_var($payment_status, FILTER_SANITIZE_STRING);
-   $update_payment = $conn->prepare("UPDATE `order` SET payment_status = ? WHERE id = ?");
+   $update_payment = $conn->prepare("UPDATE `order` SET paymentStatus = ? WHERE orderID = ?");
    $update_payment->execute([$payment_status, $order_id]);
    $message[] = 'payment status updated!';
 
@@ -23,7 +23,7 @@ if(isset($_POST['update_payment'])){
 
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
-   $delete_order = $conn->prepare("DELETE FROM `orders` WHERE id = ?");
+   $delete_order = $conn->prepare("DELETE FROM `order` WHERE orderID = ?");
    $delete_order->execute([$delete_id]);
    header('location:admin_orders.php');
 }
@@ -55,18 +55,21 @@ if(isset($_GET['delete'])){
 <h1 class="heading">placed orders</h1>
 
 <div class="box-container">
+<?php
+      $select_orders = $conn->prepare("SELECT * FROM `order`");
+      $select_orders->execute();
+      if($select_orders->rowCount() > 0){
+         while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
+   ?>
    <div class="box">
-      <p> PLACED ON : <span>placed on</span> </p>
-      <p> NAME : <span>name here</span> </p>
-      <p> NUMBER : <span>contact number here</span> </p>
-      <p> ADDRESS : <span>address here</span> </p>
-      <p> TOTAL PRODUCTS : <span>total products here</span> </p>
-      <p> TOTAL PRICE : <span>total price here</span> </p>
-      <p> PAYMENT METHOD : <span>payment method here</span> </p>
+      <p> Order Amount : <span><?= $fetch_orders['orderAmount']; ?></span> </p>
+      <p> Order Status : <span><?= $fetch_orders['orderStatus']; ?></span> </p>
+      <p> Payment Type : <span><?= $fetch_orders['paymentType']; ?></span> </p>
+      <p> Payment Status : <span><?= $fetch_orders['paymentStatus']; ?></span> </p>
       <form action="" method="post">
-         <input type="hidden" name="order_id" value="<?= $fetch_orders['id']; ?>">
+         <input type="hidden" name="order_id" value="<?= $fetch_orders['orderID']; ?>">
          <select name="payment_status" class="select">
-            <option selected disabled>payment status here</option>
+            <option selected disabled><?= $fetch_orders['paymentStatus']; ?></option>
             <option value="pending">PENDING</option>
             <option value="completed">COMPLETED</option>
          </select>
@@ -76,6 +79,12 @@ if(isset($_GET['delete'])){
         </div>
       </form>
    </div>
+   <?php
+         }
+      }else{
+         echo '<p class="empty">no orders placed yet!</p>';
+      }
+   ?>
 
 </div>
 

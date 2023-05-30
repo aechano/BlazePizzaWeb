@@ -28,7 +28,9 @@ if(isset($_GET['logout'])){
 
         if($ingredients->rowCount() > 0) {
              while($fetch_ingredients_details = $ingredients->fetch(PDO::FETCH_ASSOC)) {
-                 echo '<li><img src="data:image/png;base64,' .base64_encode($fetch_ingredients_details['ingredientsImage']).'" alt=""></li>';
+
+                $imagePath = '../admin/uploaded_images/' . $fetch_ingredients_details['ingImage'];
+                 echo '<li><img src="'. $imagePath.'" alt=""></li>';
              }
         } 
     }

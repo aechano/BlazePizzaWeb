@@ -42,7 +42,7 @@ if(!isset($admin_id)){
             <div class="box">
             <?php
             $total_pendings = 0;
-            $select_pendings = $conn->prepare("SELECT * FROM `order` WHERE orderStatus = ?");
+            $select_pendings = $conn->prepare("SELECT * FROM `order` WHERE paymentStatus = ?");
             $select_pendings->execute(['pending']);
             if($select_pendings->rowCount() > 0){
                while($fetch_pendings = $select_pendings->fetch(PDO::FETCH_ASSOC)){
@@ -58,7 +58,7 @@ if(!isset($admin_id)){
             <div class="box">
             <?php
             $total_completes = 0;
-            $select_completes = $conn->prepare("SELECT * FROM `order` WHERE orderStatus = ?");
+            $select_completes = $conn->prepare("SELECT * FROM `order` WHERE paymentStatus = ?");
             $select_completes->execute(['paid']);
             if($select_completes->rowCount() > 0){
                while($fetch_completes = $select_completes->fetch(PDO::FETCH_ASSOC)){
@@ -117,18 +117,23 @@ if(!isset($admin_id)){
 
             <div class="box">
             <?php
-            $select_email = $conn->prepare("SELECT custEmail FROM `customer`");
-            $select_email->execute();
-            $number_of_email = $select_email->rowCount()
-         ?>
+               $select_email = $conn->prepare("SELECT custEmail FROM `customer`");
+               $select_email->execute();
+               $number_of_email = $select_email->rowCount()
+            ?>
                 <h3><?= $number_of_email;?></h3>
                 <p>emails</p>
                 <a href="emails.php" class="btn">see emails</a>
             </div>
 
             <div class="box">
+            <?php
+               $select_ewallet = $conn->prepare("SELECT customerID FROM `ewallet` WHERE eWalletStatus = 'Activated' ");
+               $select_ewallet->execute();
+               $number_of_ewallet = $select_ewallet->rowCount()
+            ?>
                 
-                <h3>0</h3>
+                <h3><?= $number_of_ewallet;?></h3>
                 <p>ewallet users</p>
                 <a href="ewallet_users.php" class="btn">see ewallet</a>
             </div>
