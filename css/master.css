@@ -220,11 +220,11 @@ body{
     width: 35rem;
     z-index: 1100;
     background-color: wheat;
-    border-left: var(--border);
     height: 100vh;
     overflow-y: scroll;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
+    border-top-left-radius: 30px;
  }
 
  .shopping-cart::-webkit-scrollbar { 
@@ -238,7 +238,10 @@ body{
  .shopping-cart #close-cart{
     text-align: left;
     padding-left: 2rem;
-    margin-top: 10px;
+    color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
  }
  
  .shopping-cart #close-cart span{
@@ -375,8 +378,7 @@ body{
     z-index: 9999;
     right: -10px;
     top: -10px;
-    width: 100;
-    font-size: 60px;
+    font-size: 33px;
     background-color: white;
     border-radius: 50%;
 }
@@ -403,6 +405,44 @@ body{
 
 .order_button {
     text-align: right;
+}
+
+.slider {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+#slider-inner {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#slider-inner {
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
+    width: 100%;
+}
+
+#slider-inner ul {
+    margin: 0;  
+    padding: 0;
+    position: relative;
+    display: flex;
+}
+
+#slider-inner li {
+    list-style: none;
+    position: relative;
+    margin: 5px;
+    width: 100%;
+}
+
+#slider-inner li img {
+    border: 1px dashed #ddd;
+    border-radius: 10px;
+    width: 100%;
 }
 
  /* .message{

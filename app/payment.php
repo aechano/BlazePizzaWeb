@@ -104,11 +104,6 @@
                                             $select_orders = $conn->prepare("SELECT * FROM `product` WHERE productID = ?");
                                             $select_orders->execute([$_GET['id']]);
 
-                                            $vars = new StdClass();
-                                            $vars->product_id = $_GET['id'];;
-                                            $vars->quantity = $_GET['quantity'];
-                                            array_push($orderItems, $vars);
-                                        
                                             if($select_orders->rowCount() > 0){                           
                                                 for($i=0;$i<$select_orders->rowCount();$i++){   
                                                     $fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC);
@@ -169,11 +164,6 @@
                                                 for($i=0;$i<$cart_items->rowCount();$i++){   
                                                     $fetch_orders = $cart_items->fetch(PDO::FETCH_ASSOC);
 
-                                                    $vars = new StdClass();
-                                                    $vars->product_id = $fetch_orders['productID'];
-                                                    $vars->quantity = $fetch_orders['OICartQty'];
-                                                    array_push($orderItems, $vars);
-
                                                     $details = $conn->prepare("SELECT * FROM `product` WHERE productID = ?");
                                                     $details->execute([$fetch_orders['productID']]);
 
@@ -220,6 +210,72 @@
                                         <div id="<?= $i ?>" class="product-close-btn fas fa-times-circle">
                                         </div>
                                     </div>
+
+                                    <?php 
+                                        if($fetch_details['productName'] == 'Build Your Own') {
+                                    ?>
+
+                                    <div>
+                                        <div class="slider">
+                                          <div id="slider-inner">
+                                            <ul>
+                                                <?php 
+                                                    $ingredients_itemcart = $conn->prepare("SELECT * FROM `orderingredientscart` WHERE OICartID = ?");
+                                                    $ingredients_itemcart->execute([$fetch_orders['OICartID']]);
+
+                                                    $isNotEmpty = 0;
+                                                    if($ingredients_itemcart->rowCount() > 0) {
+                                                        while($fetch_ingredients = $ingredients_itemcart->fetch(PDO::FETCH_ASSOC)) {
+
+                                                            if($fetch_ingredients['OICDough'] != "") {
+                                                                getIngredients($fetch_ingredients['OICDough']);
+                                                                $isNotEmpty++;
+                                                            }
+
+                                                            if($fetch_ingredients['OICSauce'] != "") {
+                                                                getIngredients($fetch_ingredients['OICSauce']);
+                                                                $isNotEmpty++;
+                                                            }
+
+                                                            if($fetch_ingredients['OICCheese'] != "") {
+                                                                getIngredients($fetch_ingredients['OICCheese']);
+                                                                $isNotEmpty++;
+                                                            }
+
+                                                            if($fetch_ingredients['OICMeat'] != "") {
+                                                               getIngredients($fetch_ingredients['OICMeat']);
+                                                               $isNotEmpty++;
+                                                            }
+
+                                                            if($fetch_ingredients['OICVeggies'] != "") {
+                                                                getIngredients($fetch_ingredients['OICVeggies']);
+                                                                $isNotEmpty++;
+                                                            }
+
+                                                            if($fetch_ingredients['OICFinishes'] != "") {
+                                                                getIngredients($fetch_ingredients['OICFinishes']);
+                                                                $isNotEmpty++;
+                                                            }
+
+                                                        }
+
+                                                        //generate empty placeholder
+                                                        for($ii=0; $ii< 6 - $isNotEmpty; $ii++) {
+                                                         echo '<li></li>';
+                                                        }
+
+                                                    }
+
+                                                ?>
+
+                                            </ul>
+                                          </div>
+                                        </div>
+                                    </div>
+
+                                    <?php 
+                                        }
+                                    ?>
                                 </div>
 
                                 <?php
@@ -291,12 +347,6 @@
 
                                 </div>
 
-
-                                <?php
-                              
-
-                                    //var_dump(json_decode(json_encode($orderItems), true)[0]['product_id']);
-                                ?>
                             </div>
 
                             </div>

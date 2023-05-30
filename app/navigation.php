@@ -17,6 +17,21 @@ if(isset($_GET['logout'])){
     session_destroy();
     header('location:index.php');
  }
+
+
+ function getIngredients($value) {
+
+        global $conn;
+
+        $ingredients = $conn->prepare("SELECT * FROM `ingredients` WHERE ingredientsName = ?");
+        $ingredients->execute([$value]);
+
+        if($ingredients->rowCount() > 0) {
+             while($fetch_ingredients_details = $ingredients->fetch(PDO::FETCH_ASSOC)) {
+                 echo '<li><img src="data:image/png;base64,' .base64_encode($fetch_ingredients_details['ingredientsImage']).'" alt=""></li>';
+             }
+        } 
+    }
  
 ?>
 
@@ -133,20 +148,8 @@ if(isset($_GET['logout'])){
                 ?>
 
                 <div class="<?= 'box box'.$i ?>">
-                   <!--  <a href="#" class="fas fa-times"></a>
-                    <?php
-                        $imagePath = '../admin/uploaded_images/' . $fetch_details['image'];
-                        echo '<img src="' . $imagePath . '" alt="">';
-                    ?>
-                    <div class="read">
-                        <p> <?= $fetch_details['productName']; ?> <span>($<?= $fetch_details['productPrice']; ?>)</span></p>
-                        <form action="" method="post">
-                        <input type="number" class="qty" name="qty" min="1" value="<?= $fetch_orders['OICartQty']; ?>" max="100">
-                        <button type="submit" class="fas fa-edit" name="update_qty"></button>
-                        </form>
-                    </div> -->
 
-                     <div id="<?= $i ?>" class="remove_products fas fa-times-circle"></div>
+                    <div id="<?= $i ?>" class="remove_products fas fa-times-circle"></div>
 
                     <div style="position: relative;">
                         <div class="loading" id="<?= 'loading'.$i; ?>" style="display:none;">
@@ -157,7 +160,73 @@ if(isset($_GET['logout'])){
                             echo '<img src="' . $imagePath . '" alt="">';
                         ?>
                     </div>
-                     
+
+                    <?php 
+                        if($fetch_details['productName'] == 'Build Your Own') {
+                    ?>
+
+                    <div>
+                        <div class="slider">
+                          <div id="slider-inner">
+                            <ul>
+                                <?php 
+                                    $ingredients_itemcart = $conn->prepare("SELECT * FROM `orderingredientscart` WHERE OICartID = ?");
+                                    $ingredients_itemcart->execute([$fetch_orders['OICartID']]);
+
+                                    $isNotEmpty = 0;
+                                    if($ingredients_itemcart->rowCount() > 0) {
+                                        while($fetch_ingredients = $ingredients_itemcart->fetch(PDO::FETCH_ASSOC)) {
+
+                                            if($fetch_ingredients['OICDough'] != "") {
+                                                getIngredients($fetch_ingredients['OICDough']);
+                                                $isNotEmpty++;
+                                            }
+
+                                            if($fetch_ingredients['OICSauce'] != "") {
+                                                getIngredients($fetch_ingredients['OICSauce']);
+                                                $isNotEmpty++;
+                                            }
+
+                                            if($fetch_ingredients['OICCheese'] != "") {
+                                                getIngredients($fetch_ingredients['OICCheese']);
+                                                $isNotEmpty++;
+                                            }
+
+                                            if($fetch_ingredients['OICMeat'] != "") {
+                                               getIngredients($fetch_ingredients['OICMeat']);
+                                               $isNotEmpty++;
+                                            }
+
+                                            if($fetch_ingredients['OICVeggies'] != "") {
+                                                getIngredients($fetch_ingredients['OICVeggies']);
+                                                $isNotEmpty++;
+                                            }
+
+                                            if($fetch_ingredients['OICFinishes'] != "") {
+                                                getIngredients($fetch_ingredients['OICFinishes']);
+                                                $isNotEmpty++;
+                                            }
+
+                                        }
+
+                                        //generate empty placeholder
+                                        for($ii=0; $ii< 6 - $isNotEmpty; $ii++) {
+                                         echo '<li></li>';
+                                        }
+
+                                    }
+
+                                ?>
+
+                            </ul>
+                          </div>
+                        </div>
+                    </div>
+
+                    <?php 
+                        }
+                    ?>
+
                      <div class="read">
                         <div>
                             <p> Product: <?= $fetch_details['productName']; ?> </p>

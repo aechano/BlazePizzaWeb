@@ -91,12 +91,6 @@
                                 echo '<p class="empty">no products available!</p>';
                             }
                         ?>
-
-
-
-
-
-
                     </div>
                 </section>
 

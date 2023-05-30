@@ -96,7 +96,75 @@
                                                 <div class="order-name">
                                                     <h6><a href="#" class="text-reset"> <?= $fetch_product['productName'] ?></a></h6>
                                                 </div>
+
                                             </div>
+
+                                            <?php 
+                                                if($fetch_product['productName'] == 'Build Your Own') {
+                                            ?>
+
+                                            <div style="width: 50%;">
+                                                <div class="slider">
+                                                  <div id="slider-inner">
+                                                    <ul>
+                                                        <?php 
+                                                            $ingredients_itemcart = $conn->prepare("SELECT * FROM `orderingredients` WHERE itemID = ?");
+                                                            $ingredients_itemcart->execute([$fetch_item['itemID']]);
+
+                                                            $isNotEmpty = 0;
+                                                            if($ingredients_itemcart->rowCount() > 0) {
+                                                                while($fetch_ingredients = $ingredients_itemcart->fetch(PDO::FETCH_ASSOC)) {
+
+                                                                    if($fetch_ingredients['orderIngredientsDough'] != "") {
+                                                                        getIngredients($fetch_ingredients['orderIngredientsDough']);
+                                                                        $isNotEmpty++;
+                                                                    }
+
+                                                                    if($fetch_ingredients['orderIngredientsSauce'] != "") {
+                                                                        getIngredients($fetch_ingredients['orderIngredientsSauce']);
+                                                                        $isNotEmpty++;
+                                                                    }
+
+                                                                    if($fetch_ingredients['orderIngredientsCheese'] != "") {
+                                                                        getIngredients($fetch_ingredients['orderIngredientsCheese']);
+                                                                        $isNotEmpty++;
+                                                                    }
+
+                                                                    if($fetch_ingredients['orderIngredientsMeat'] != "") {
+                                                                       getIngredients($fetch_ingredients['orderIngredientsMeat']);
+                                                                       $isNotEmpty++;
+                                                                    }
+
+                                                                    if($fetch_ingredients['orderIngredientsVeggies'] != "") {
+                                                                        getIngredients($fetch_ingredients['orderIngredientsVeggies']);
+                                                                        $isNotEmpty++;
+                                                                    }
+
+                                                                    if($fetch_ingredients['orderIngredientsFinishes'] != "") {
+                                                                        getIngredients($fetch_ingredients['orderIngredientsFinishes']);
+                                                                        $isNotEmpty++;
+                                                                    }
+
+                                                                }
+
+                                                                //generate empty placeholder
+                                                                for($ii=0; $ii< 6 - $isNotEmpty; $ii++) {
+                                                                 echo '<li></li>';
+                                                                }
+
+                                                            }
+
+                                                        ?>
+
+                                                    </ul>
+                                                  </div>
+                                                </div>
+                                            </div>
+
+                                            <?php 
+                                                }
+                                            ?>
+
                                         </td>
                                         <td class="border"><?= $fetch_item['orderItemQty'] ?></td>
                                         <td class="text-end border"> $<?= sprintf("%.2f", $fetch_item['orderItemQty'] * $fetch_product['productPrice']) ?></td>
@@ -136,17 +204,20 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <h3 class="h6">Payment Method</h3>
                                     Total: <?= sprintf("%.2f", $fetch_info['orderAmount']) ?> <span class="badge <?= $fetch_info['paymentStatus'] == 'PAID' ? 'bg-success' : 'bg-warning' ?> rounded-pill"><?= $fetch_info['paymentStatus'] ?></span></p>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <h3 class="h6"><?= $fetch_info['paymentType'] == "COD" ? "Cash On Delivery" : $fetch_info['paymentType'] ?></h3>
                                     <address>
                                     <strong><?= $fetch_user_info['custFname'] . " " . $fetch_user_info['custLname'] ?></strong><br>
                                     <?= $fetch_user_info['custAddress'] ?><br>
                                     <abbr title="Phone">P:</abbr> <?= $fetch_user_info['custContactNum'] ?>
                                     </address>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h3 class="h6">Notes: <?= $fetch_info['notes'] ?></h3>
                                 </div>
                             </div>
                          </div>

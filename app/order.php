@@ -16,6 +16,7 @@ if(!isset($_GET['action']) || !isset($_SESSION['customerID'])){
 	echo json_encode(
 		array("hasError" => true, "message" => "Something went wrong!")
 	);
+	return;
 }
 
 //remove item
@@ -32,6 +33,7 @@ if($_GET['action'] == "remove_order" && isset($_POST['id'])) {
 	return;
 }
 
+//order
 if($_GET['action'] == "order") {
 
 	if($_POST['order_type'] == 1) {
@@ -68,7 +70,7 @@ if($_GET['action'] == "order") {
         	$promo_code = !is_bool($promo) ? $promo['promoCode'] : "";
 
          	$total = $total - $promo_value;
-         	$result = saveOrder($_POST['order_type'], $promo_code, $total, $_POST['payment_option']);
+         	$result = saveOrder($_POST['order_type'], $promo_code, $total, $_POST['payment_option'], $_POST['notes']);
          	echo json_encode($result);
 			return;
 
@@ -100,7 +102,7 @@ if($_GET['action'] == "order") {
     	$promo_code = !is_bool($promo) ? $promo['promoCode'] : "";
 
      	$total = $total - $promo_value;
-     	$result = saveOrder($_POST['order_type'], $promo_code, $total, $_POST['payment_option']);
+     	$result = saveOrder($_POST['order_type'], $promo_code, $total, $_POST['payment_option'], $_POST['notes']);
      	echo json_encode($result);
 		return;
 
@@ -169,7 +171,7 @@ function validatePromo($sub_total) {
 	}
 }
 
-function saveOrder($order_type, $promo_code, $total, $payment_type) {
+function saveOrder($order_type, $promo_code, $total, $payment_type, $notes) {
 
 	global $conn;
 	$order_id = round(microtime(true));
@@ -193,8 +195,8 @@ function saveOrder($order_type, $promo_code, $total, $payment_type) {
 			}
 
 			//save order details
-			$saveOrder = $conn->prepare("INSERT INTO `order`(`orderID`, `customerID`, `promoCode`, `orderAmount`, `orderStatus`, `paymentType`, `paymentStatus`, `orderDate`) VALUES(?,?,?,?,?,?,?,?)");
-			$result = $saveOrder->execute([$order_id, $_SESSION['customerID'], $promo_code, $total, "ONGOING", $payment_type, $payment_status, $order_date]);	
+			$saveOrder = $conn->prepare("INSERT INTO `order`(`orderID`, `customerID`, `promoCode`, `orderAmount`, `orderStatus`, `paymentType`, `paymentStatus`, `orderDate`, notes) VALUES(?,?,?,?,?,?,?,?,?)");
+			$result = $saveOrder->execute([$order_id, $_SESSION['customerID'], $promo_code, $total, "ONGOING", $payment_type, $payment_status, $order_date, $notes]);	
 			//save order items
 			if($result) {
 				while ($fetch_cart = $cart->fetch(PDO::FETCH_ASSOC)) {
@@ -225,8 +227,8 @@ function saveOrder($order_type, $promo_code, $total, $payment_type) {
 			}
 		}
 
-		$saveOrder = $conn->prepare("INSERT INTO `order`(`orderID`, `customerID`, `promoCode`, `orderAmount`, `orderStatus`, `paymentType`, `paymentStatus`, `orderDate`) VALUES(?,?,?,?,?,?,?,?)");
-		$result = $saveOrder->execute([$order_id, $_SESSION['customerID'], $promo_code, $total, "ONGOING", $payment_type, $payment_status, $order_date]);	
+		$saveOrder = $conn->prepare("INSERT INTO `order`(`orderID`, `customerID`, `promoCode`, `orderAmount`, `orderStatus`, `paymentType`, `paymentStatus`, `orderDate`, notes) VALUES(?,?,?,?,?,?,?,?,?)");
+		$result = $saveOrder->execute([$order_id, $_SESSION['customerID'], $promo_code, $total, "ONGOING", $payment_type, $payment_status, $order_date, $notes]);	
 		
 		//save order items
 		if($result) {
@@ -251,7 +253,62 @@ function saveOrderItem($fetch_cart, $order_id, $order_type) {
 
 	$orderItem = $conn->prepare("INSERT INTO `orderitem`(`productID`, `orderID`, `orderItemQty`) VALUES (?, ?, ?)");
 	$orderItem->execute([$fetch_cart['productID'], $order_id, $fetch_cart['OICartQty']]);
-	
+	$item_id = $conn->lastInsertId();
+
+	if($order_type == 1 ) {
+
+		$product = $conn->prepare("SELECT * FROM `product` WHERE productID = ?");
+		$product->execute([$fetch_cart['productID'] ]);
+
+		if($product->rowCount() > 0) {
+			$fetch_product = $product->fetch(PDO::FETCH_ASSOC);
+			if($fetch_product['productName'] == 'Build Your Own') {
+				saveOrderItemIngredients($fetch_cart['OICartID'], $item_id);
+			}
+		}
+
+	}
+
+}
+
+function saveOrderItemIngredients($order_cart_id, $item_id) {
+
+	global $conn;
+
+	$ingredients_itemcart = $conn->prepare("SELECT * FROM `orderingredientscart` WHERE OICartID = ?");
+    $ingredients_itemcart->execute([$order_cart_id]);
+
+    if($ingredients_itemcart->rowCount() > 0) {
+        while($fetch_ingredients = $ingredients_itemcart->fetch(PDO::FETCH_ASSOC)) {
+
+        	$add_ingredients = $conn->prepare("
+		 		INSERT INTO `orderingredients`(
+		 		`itemID`, 
+		 		`orderIngredientsDough`, 
+		 		`orderIngredientsSauce`, 
+		 		`orderIngredientsCheese`, 
+		 		`orderIngredientsMeat`, 
+		 		`orderIngredientsVeggies`, 
+		 		`orderIngredientsFinishes`)
+		 		 VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+		  	$add_ingredients->execute([
+		  		$item_id,
+		  		$fetch_ingredients['OICDough'], 
+		  		$fetch_ingredients['OICSauce'], 
+		  		$fetch_ingredients['OICCheese'], 
+		  		$fetch_ingredients['OICMeat'], 
+		  		$fetch_ingredients['OICVeggies'], 
+		  		$fetch_ingredients['OICFinishes']
+		  	]);
+
+        }
+    }
+
+    //delete ingredients cart item since already ordered
+	$deleteCart = $conn->prepare("DELETE FROM orderingredientscart WHERE customerID = ?");
+	$deleteCart->execute([$_SESSION['customerID']]);
+
 }
 
 function updatePromoCodes($promo_code) {

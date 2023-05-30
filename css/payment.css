@@ -271,12 +271,15 @@ gap: 13px;
     margin-bottom: 20px; 
 }
 
+.product-card {
+     border: 1px solid wheat;
+     border-radius: 0.5rem;
+}
+
 .product-card .card {
     position: relative;
     display:     flex;
     align-items: flex-start;
-    border-radius: 0.5rem;
-    border: 1px solid wheat;
     padding: 10px;
     gap: 20px;
 }

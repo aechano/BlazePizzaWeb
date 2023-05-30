@@ -1,5 +1,5 @@
 
-// first
+/*// first
 $(function() {
     // Set
     var main = $('div.mm-dropdown .textfirst')
@@ -117,7 +117,7 @@ $(function() {
         inputoption.val(livalue);
     });
 });
-
+*/
 
     $(document).ready(function(){
     $('.count').prop('disabled', true);
@@ -151,8 +151,38 @@ $(function() {
 
 setTimeout(function(){
     if ($('#info').length > 0) {
-        $('#info').remove();
+        $('#info').empty();
     }
 }, 5000)
 
-  
+$("#add_to_cart").bind('click', function (e) {
+
+  $('.loading1').show();
+  setTimeout(function () {
+    $.ajax({
+      type: "POST",
+      url: "../app/build_your_own.php?action=add_to_cart&order_type=1",
+      data: $('#form').serialize(),
+      success: function(data) {
+        data = JSON.parse(data);
+        $('#message').empty();
+
+        if(data['hasError'] != false) { 
+            $('#message').append('<p class="error">' + data['message'] + '</p>');
+            $('.loading1').hide();
+            setTimeout(function(){
+              $('#message').empty();
+            }, 5000);
+            return;
+        }
+
+        $('#message').append('<p class="success">' + data['message'] + '</p>');
+        $('.loading1').hide();
+        setTimeout(function(){
+            location.reload();
+        }, 1000);
+      }
+    })
+  }, 1000);
+
+});
