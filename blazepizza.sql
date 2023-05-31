@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2023 at 03:28 PM
+-- Generation Time: May 31, 2023 at 03:13 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,30 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accounts`
---
-
-CREATE TABLE `accounts` (
-  `accountID` int(4) NOT NULL,
-  `email` varchar(25) NOT NULL,
-  `password` varchar(25) NOT NULL,
-  `eWalletID` int(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `accounts`
---
-
-INSERT INTO `accounts` (`accountID`, `email`, `password`, `eWalletID`) VALUES
-(1, 'xeniavelacruz1@gmail.com', 'hatdogcheesedog', 659841),
-(2, 'angeloechano@gmail.com', '12345678', 226541),
-(3, 'renzemortiga@gmail.com', 'abcdoremi', 741229),
-(4, 'kaiyaneza@gmail.com', 'blackpink', 941023),
-(5, 'wendeepostre@gmail.com', 'abcdefg', 963258);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `admin`
 --
 
@@ -56,6 +32,13 @@ CREATE TABLE `admin` (
   `name` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `name`, `password`) VALUES
+(2, 'myAdmin', '40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 
 -- --------------------------------------------------------
 
@@ -109,35 +92,11 @@ CREATE TABLE `ewallet` (
 --
 
 INSERT INTO `ewallet` (`eWalletID`, `customerID`, `eWalletPass`, `balance`, `currency`, `eWalletStatus`) VALUES
-(226541, 1, '12345678', 97773, 'Php', 'Activated'),
+(226541, 13, '12345678', 96816, 'Php', 'Activated'),
 (659841, 2, 'hatdogcheesedog', 200, 'Php', 'Activated'),
 (741229, 3, 'abcdoremi', 405, 'Php', 'Activated'),
-(941023, 4, 'blackpink', 0, 'Php', 'Deactivated'),
+(941023, 4, 'blackpink', 10000, 'Php', 'Deactivated'),
 (963258, 5, 'abcdefg', 1235, 'Php', 'Activated');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ewallettransaction`
---
-
-CREATE TABLE `ewallettransaction` (
-  `transactionID` int(6) NOT NULL,
-  `transactionAmount` float(6,0) NOT NULL,
-  `transactionType` varchar(20) NOT NULL,
-  `transactionDate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ewallettransaction`
---
-
-INSERT INTO `ewallettransaction` (`transactionID`, `transactionAmount`, `transactionType`, `transactionDate`) VALUES
-(1, 200, 'Deposit', '2023-04-19'),
-(2, 500, 'Payment', '2023-04-29'),
-(3, 123, 'Payment', '2023-04-27'),
-(4, 560, 'Deposit', '2023-04-30'),
-(5, 600, 'Deposit', '2023-04-30');
 
 -- --------------------------------------------------------
 
@@ -158,13 +117,8 @@ CREATE TABLE `ingredients` (
 --
 
 INSERT INTO `ingredients` (`ingredientsID`, `ingredientsCategory`, `ingredientsName`, `ingredientsQty`, `ingImage`) VALUES
-(1, 'Dough', 'Keto-Crust Dough', 90, ''),
-(2, 'Sauce', 'Garlic Pesto Sauce', 100, ''),
-(3, 'Cheese', 'Shredded Mozarella', 110, ''),
-(4, 'Meat', 'Pepperoni', 133, ''),
-(5, 'Veggies', 'Fresh Basil', 67, ''),
-(6, 'Finishes', 'Balsamic Glaze', 70, ''),
-(7, 'Dough', 'Classic Dough', 10, '');
+(9, 'Dough', 'Classic Dough', 159, 'Classic_Dough.png'),
+(10, 'Cheese', 'regular cheese', 23, 'Fresh_Mozzarella.png');
 
 -- --------------------------------------------------------
 
@@ -180,19 +134,20 @@ CREATE TABLE `order` (
   `orderStatus` varchar(25) NOT NULL,
   `paymentType` varchar(25) NOT NULL,
   `orderDate` date NOT NULL,
-  `paymentStatus` varchar(255) NOT NULL
+  `paymentStatus` varchar(255) NOT NULL,
+  `notes` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `order`
 --
 
-INSERT INTO `order` (`orderID`, `customerID`, `promoCode`, `orderAmount`, `orderStatus`, `paymentType`, `orderDate`, `paymentStatus`) VALUES
-('1685312110', 13, 'B43Ods', 229, 'COMPLETED', 'Blaze Pizza e-Wallet', '2023-05-29', 'PAID'),
-('1685312124', 13, '', 45, 'ONGOING', 'COD', '2023-05-29', 'PENDING'),
-('1685312495', 13, '', 126, 'ONGOING', 'Blaze Pizza e-Wallet', '2023-05-29', 'PAID'),
-('1685314783', 13, '', 126, 'ONGOING', 'COD', '2023-05-29', 'PENDING'),
-('1685314935', 13, '', 31, 'ONGOING', 'COD', '2023-05-29', 'PENDING');
+INSERT INTO `order` (`orderID`, `customerID`, `promoCode`, `orderAmount`, `orderStatus`, `paymentType`, `orderDate`, `paymentStatus`, `notes`) VALUES
+('1685490088', 13, '', 59, 'ONGOING', 'COD', '2023-05-31', 'PENDING', ''),
+('1685490131', 13, '', 301, 'ONGOING', 'COD', '2023-05-31', 'PENDING', ''),
+('1685491521', 13, '', 59, 'ONGOING', 'COD', '2023-05-31', 'PENDING', ''),
+('1685491693', 13, '', 59, 'COMPLETED', 'Blaze Pizza e-Wallet', '2023-05-31', 'PAID', ''),
+('1685492105', 13, '', 59, 'ONGOING', 'Blaze Pizza e-Wallet', '2023-05-31', 'PAID', '');
 
 -- --------------------------------------------------------
 
@@ -211,17 +166,6 @@ CREATE TABLE `orderingredients` (
   `orderIngredientsFinishes` varchar(25) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `orderingredients`
---
-
-INSERT INTO `orderingredients` (`orderIngredientsID`, `itemID`, `orderIngredientsDough`, `orderIngredientsSauce`, `orderIngredientsCheese`, `orderIngredientsMeat`, `orderIngredientsVeggies`, `orderIngredientsFinishes`) VALUES
-(1, 1, 'Gluten-Free Dough', 'Red Sauce', 'Feta Cheese', 'Applewood Bacon', 'Artichokes', 'Arugula'),
-(2, 2, 'Cauliflower Dough', 'Garlic Pesto Sauce', 'Fresh Mozarella', 'Crumbled Meatballs', 'Banana Peppers', 'Balsamic Glaze'),
-(3, 3, 'Classic Dough', 'Red Sauce Dollops', 'Goat Cheese', 'Grilled Chicken', 'Black Olives', 'BBQ Sauce'),
-(4, 4, 'High-Rise Dough', 'Spicy Red Sauce', 'Gorgonzola', 'Italian Sausage', 'Cherry Tomatoes', 'Buttermilk Ranch'),
-(5, 5, 'Keto-Crust Dough', 'White Cream Sauce', 'Parmesan', 'Smoked Ham', 'Chopped Garlic', 'Buttermilk Ranch on Side');
-
 -- --------------------------------------------------------
 
 --
@@ -230,30 +174,22 @@ INSERT INTO `orderingredients` (`orderIngredientsID`, `itemID`, `orderIngredient
 
 CREATE TABLE `orderingredientscart` (
   `OICID` int(6) NOT NULL,
-  `itemID` int(6) NOT NULL,
+  `OICartID` int(6) NOT NULL,
   `OICDough` varchar(25) DEFAULT NULL,
   `OICSauce` varchar(25) DEFAULT NULL,
   `OICCheese` varchar(25) DEFAULT NULL,
   `OICMeat` varchar(25) DEFAULT NULL,
   `OICVeggies` varchar(25) DEFAULT NULL,
-  `OICFinishes` varchar(25) DEFAULT NULL
+  `OICFinishes` varchar(25) DEFAULT NULL,
+  `customerID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orderingredientscart`
 --
 
-INSERT INTO `orderingredientscart` (`OICID`, `itemID`, `OICDough`, `OICSauce`, `OICCheese`, `OICMeat`, `OICVeggies`, `OICFinishes`) VALUES
-(16, 186, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', 'Shredded Mozarella', 'Keto-Crust Dough', 'Keto-Crust Dough'),
-(17, 187, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', 'Shredded Mozarella', 'Keto-Crust Dough', 'Keto-Crust Dough'),
-(18, 188, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', '', '', ''),
-(19, 189, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', '', '', ''),
-(20, 190, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', '', '', ''),
-(21, 191, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', '', '', ''),
-(22, 192, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', '', '', ''),
-(23, 193, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', '', '', ''),
-(24, 194, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', '', '', ''),
-(25, 195, 'Keto-Crust Dough', 'Garlic Pesto Sauce', 'Shredded Mozarella', '', '', '');
+INSERT INTO `orderingredientscart` (`OICID`, `OICartID`, `OICDough`, `OICSauce`, `OICCheese`, `OICMeat`, `OICVeggies`, `OICFinishes`, `customerID`) VALUES
+(30, 208, 'Classic Dough', '', 'regular cheese', '', '', '', 13);
 
 -- --------------------------------------------------------
 
@@ -273,13 +209,12 @@ CREATE TABLE `orderitem` (
 --
 
 INSERT INTO `orderitem` (`itemID`, `productID`, `orderID`, `orderItemQty`) VALUES
-(51, 1, 1685312110, 4),
-(52, 4, 1685312110, 1),
-(53, 5, 1685312110, 3),
-(54, 1, 1685312124, 1),
-(55, 10, 1685312495, 1),
-(56, 10, 1685314783, 1),
-(57, 6, 1685314935, 1);
+(78, 26, 1685490088, 1),
+(79, 27, 1685490131, 1),
+(80, 26, 1685490131, 1),
+(81, 26, 1685491521, 1),
+(82, 26, 1685491693, 1),
+(83, 26, 1685492105, 1);
 
 -- --------------------------------------------------------
 
@@ -299,16 +234,8 @@ CREATE TABLE `orderitemcart` (
 --
 
 INSERT INTO `orderitemcart` (`OICartID`, `productID`, `customerID`, `OICartQty`) VALUES
-(186, 10, 13, 1),
-(187, 10, 13, 1),
-(188, 10, 13, 1),
-(189, 10, 13, 1),
-(190, 10, 13, 1),
-(191, 10, 13, 1),
-(192, 10, 13, 1),
-(193, 10, 13, 1),
-(194, 10, 13, 1),
-(195, 10, 13, 1);
+(209, 27, 13, 1),
+(210, 31, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -331,17 +258,14 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`productID`, `productName`, `productType`, `productQty`, `productPrice`, `productDesc`, `image`) VALUES
-(1, 'Vegetarian Pizza', '11-Inch Pizza', 50, 43, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(2, 'Cheesy Bread', 'Cheesy Breads and Salads', 73, 23, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(3, 'Smore Pie', 'Desserts', 66, 10, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(4, 'Party of One', 'Digital Deals', 105, 51, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(5, 'Coke Bottle', 'Drinks, Beers, and Wine', 105, 8, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(6, 'Art Lover', 'Large Pizza', 98, 30, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(7, 'Cheesy Bread + Choice of Side', 'Take Two', 50, 54, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(8, 'Pesto Garlic Cheesy Bread', 'Cheesy Breads and Salads', 74, 27, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(9, 'Green Stripe', '11-Inch Pizza', 10, 125, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(10, 'Build Your Own', '11-Inch Pizza', 10, 120, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', ''),
-(11, 'Build Your Own', 'Large Pizza', 5, 234, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '');
+(26, 'Meat Eater', '11-Inch Pizza', 30, 56, 'This pizza is a wonderful pizza, because this pizza is mine', 'Meat_Eater.png'),
+(27, 'Wine', 'Drinks, Beers, and Wine', 466, 231, 'You can get another salad with this pizza', 'San_Pellegrino.png'),
+(28, 'Vegetarian Pizza', '11-Inch Pizza', 13, 788, 'This pizza is a wonderful pizza, because this pizza is mine', 'Hot_Link.png'),
+(29, 'Smore Pie', 'Desserts', 56, 211, 'This is my bread and butter', 'Smore_Pie.png'),
+(30, 'brownies', 'Desserts', 123, 2323, '455', 'Chocolate_Brownie_Brushed_with_Olive_Oil.png'),
+(31, 'Bread', 'Cheesy Breads and Salads', 12344, 6789, 'This is my bread and butter', 'Entree_Salad.png'),
+(32, 'Build Your Own', '11-Inch Pizza', 1234, 32, 'You can get another salad with this pizza', 'Build_Your_Own.png'),
+(33, 'Green Stripe Pizza', '11-Inch Pizza', 678, 6576, 'You can get another salad with this pizza', 'Green_Stripe.png');
 
 -- --------------------------------------------------------
 
@@ -365,19 +289,11 @@ CREATE TABLE `promos` (
 --
 
 INSERT INTO `promos` (`promoCode`, `promoName`, `promoType`, `minPrice`, `rewards`, `availability`, `promoImage`, `description`) VALUES
-('13LgIe', 'HEARTSDAY', 'Event', 100, '15', 10, '', 'We\'re the best place to grab a fast-fire\'d pizza made with real ingredients that are free of artificial colors, flavors, preservatives, and sweeteners. We\'ve also got freshly made salads, house-made lemonades, and decadent, oven-fired desserts on the menu'),
-('B43Ods', 'DISCOUNT', 'Coupon', 200, '30', 1, '-', 'We\'re the best place to grab a fast-fire\'d pizza made with real ingredients that are free of artificial colors, flavors, preservatives, and sweeteners. We\'ve also got freshly made salads, house-made lemonades, and decadent, oven-fired desserts on the menu'),
-('INz3p0', 'NEWYEAR', 'Event', 500, '50', 1, '', 'We\'re the best place to grab a fast-fire\'d pizza made with real ingredients that are free of artificial colors, flavors, preservatives, and sweeteners. We\'ve also got freshly made salads, house-made lemonades, and decadent, oven-fired desserts on the menu');
+('REDDEE', 'Blaze Jubilee', 'Promo', 350, '50', 11, 'Stamps_Promo.png', 'We&#39;re the best place to grab a fast-fire&#39;d pizza made with real ingredients that are free of artificial colors, flavors, preservatives, and sweeteners. We&#39;ve also got freshly made salads, house-made lemonades, and decadent, oven-fired desserts');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `accounts`
---
-ALTER TABLE `accounts`
-  ADD PRIMARY KEY (`accountID`);
 
 --
 -- Indexes for table `admin`
@@ -396,12 +312,6 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `ewallet`
   ADD PRIMARY KEY (`eWalletID`);
-
---
--- Indexes for table `ewallettransaction`
---
-ALTER TABLE `ewallettransaction`
-  ADD PRIMARY KEY (`transactionID`);
 
 --
 -- Indexes for table `ingredients`
@@ -459,7 +369,7 @@ ALTER TABLE `promos`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `customer`
@@ -468,46 +378,40 @@ ALTER TABLE `customer`
   MODIFY `customerID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `ewallettransaction`
---
-ALTER TABLE `ewallettransaction`
-  MODIFY `transactionID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `ingredientsID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ingredientsID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orderingredients`
 --
 ALTER TABLE `orderingredients`
-  MODIFY `orderIngredientsID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `orderIngredientsID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orderingredientscart`
 --
 ALTER TABLE `orderingredientscart`
-  MODIFY `OICID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `OICID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `orderitem`
 --
 ALTER TABLE `orderitem`
-  MODIFY `itemID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `itemID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `orderitemcart`
 --
 ALTER TABLE `orderitemcart`
-  MODIFY `OICartID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+  MODIFY `OICartID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `productID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `productID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,168 +1,148 @@
 :root {
-    --bg-color: rgba(50, 50, 50, 1);
-    --text-color: #fff;
-    --main-color: #fc6913;
-  }
-  
-  .content {
-    padding: 10%;
-  }
-  
-  html, body {
-    height: 100%;
-  }
-  
-  .container {
-    position: relative;
-    display: block;
-  }
-  
-  .profile_pic {
-    position: relative;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 20%
-  }
-  
-  .profile_name {
-    text-align: center;
-    margin-top: 1vw;
-    font-size: 1.5vw;
-    font-family: "Inter_Bold"
-  }
-  
-  .changepic_btn {
-    text-align: center;
-    margin-top: 1vw;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1vw;
-    color: rgb(109, 109, 109);
-    font-family: "Inter_Bold";
-  }
-  
-  
-  .changepic_btn a {
-    color: inherit;
-    text-decoration: none;
-  }
-  
-  .acc-info-title {
-    text-align: left;
-    margin-top: 1vw;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1.2vw;
-    color: rgb(109, 109, 109);
-    font-family: "Inter_Bold";
-    text-align: left;
-  }
-  
-  .acc-info-content {
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2vw;
-    overflow-y: hidden; /* Hide vertical scrollbar */
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-    color: rgb(15, 15, 15);
-    font-family: "Inter_Regular";
-    height: 40%;
-    margin-top: 0vw;
-    text-align: left;
-    padding-left: 5px;
-    padding-top: 5px;
-    border: none; /* Remove the border */
-    background-color: transparent; /* Make the background transparent */
-  }
-  
-  .acc-info-content2 {
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2vw;
-    color: rgb(15, 15, 15);
-    font-family: "Inter_Regular";
-    height: 62%;
-    margin-top: 0vw;
-    padding-left: 5px;
-    padding-top: 5px;
-    text-align: left;
-    border: none; /* Remove the border */
-    background-color: transparent; /* Make the background transparent */
-  }
-  
-    .title {
-      text-align: left;
-      margin-top: 1vw;
-      margin-left: auto;
-      margin-right: auto;
-      font-size: 3vw;
-      color: rgb(15, 15, 15);
-      font-family: "Populaire"
-    }
-  
-    textarea[readonly] {
-      cursor: default; /* Prevent the cursor from changing when hovering over the text area */
-    }
-  
-    .account-info {
-      text-align: left;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      height: 0px;
-      text-align: left;
-    }
-  
-    .indiv-info {
-      text-align: left;
-      display: flex;
-      width: 50%;
-      max-width: 50%;
-      min-width: 50%;
-      align-content: stretch;
-      position: relative;
-      display: inline-block;
-    }
+  --bg-color: rgba(50, 50, 50, 1);
+  --text-color: #fff;
+  --main-color: #fc6913;
+}
 
-    textarea {
-      margin-top: 1vw;
-      width: 90%;
-      resize: none;
-      outline: none;
-      box-shadow: none;
-    }
-  
-    @media (max-width: 768px) {
-      .indiv-info {
-        width: 100%;
-        max-width: 100%;
-        min-width: 100%;
-      }
-  
-      .acc-info-content {
-        width: 100%;
-      }
-  
-      .acc-info-content2 {
-        height: 30%;
-        width: 100%;
-      }
-    }
-  
-    @font-face {
-      font-family: "Populaire";
-      src: url("../assets/Fonts/Populaire.ttf");
-    }
-  
-    @font-face {
-      font-family: "Inter_Bold";
-      src: url("../assets/Fonts/inter/Inter-Bold.otf");
-    }
-  
-    @font-face {
-      font-family: "Inter_Regular";
-      src: url("../assets/Fonts/inter/Inter-Regular.otf");
-    }
+.content {
+  margin: 10%;
+}
+
+.container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile_pic {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%
+}
+
+.profile_name {
+  text-align: center;
+  margin-top: 1vw;
+  font-size: 1.5vw;
+  font-family: "Inter_Bold"
+}
+
+.changepic_btn {
+  text-align: center;
+  margin-top: 1vw;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1vw;
+  color: rgb(109, 109, 109);
+  font-family: "Inter_Bold"
+}
+
+.acc-info-title {
+  text-align: left;
+  margin-top: 1vw;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.2vw;
+  color: rgb(109, 109, 109);
+  font-family: "Inter_Bold";
+  text-align: left;
+}
+
+.acc-info-content {
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2vw;
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  color: rgb(15, 15, 15);
+  font-family: "Inter_Regular";
+  height: 40%;
+  margin-top: .5vw;
+  text-align: left;
+  padding-left: 5px;
+  padding-top: 5px;
+}
+
+.acc-info-content2 {
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2vw;
+  color: rgb(15, 15, 15);
+  font-family: "Inter_Regular";
+  height: 62%;
+  margin-top: .5vw;
+  padding-left: 5px;
+  padding-top: 5px;
+  text-align: left;
+}
+
+.title {
+  text-align: center;
+  margin-top: 1vw;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 3vw;
+  color: rgb(15, 15, 15);
+  font-family: "Populaire"
+}
+
+textarea {
+  margin-top: 1vw;
+  width: 90%;
+  resize: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.account-info{
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  height: 0px;
+  text-align: left;
+}
+
+.indiv-info {
+  text-align: left;
+  display: flex;
+  width: 50%;
+  max-width: 50%;
+  min-width: 50%;
+  align-content: stretch;
+  position: relative;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .indiv-info {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  .acc-info-content {
+      width: 100%;
+  }
+
+  .acc-info-content2 {
+      height: 30%;
+      width: 100%;
+  }
+}
+
+@font-face {
+  font-family: "Populaire";
+  src: url("../assets/Fonts/Populaire.ttf");
+}
+@font-face {
+  font-family: "Inter_Bold";
+  src: url("../assets/Fonts/inter/Inter-Bold.otf");
+}
+@font-face {
+  font-family: "Inter_Regular";
+  src: url("../assets/Fonts/inter/Inter-Regular.otf");
+}

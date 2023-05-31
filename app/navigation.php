@@ -114,7 +114,6 @@ if(isset($_GET['logout'])){
                     </a>';
                 }
             ?>
-            <div id="search" class="fas fa-search"></div>
             <div id="shopping" class="fas fa-shopping-cart"></div>
         </div>
     </div>
